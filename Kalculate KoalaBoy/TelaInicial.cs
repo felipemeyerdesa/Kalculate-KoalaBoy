@@ -16,7 +16,6 @@ namespace Kalculate_KoalaBoy
         {
             InitializeComponent();
 
-            DoubleBuffered = true;
         }
 
 

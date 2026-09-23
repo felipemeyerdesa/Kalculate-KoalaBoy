@@ -42,7 +42,7 @@
             this.pbStart.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbStart.Image = ((System.Drawing.Image)(resources.GetObject("pbStart.Image")));
             this.pbStart.Location = new System.Drawing.Point(465, 368);
-            this.pbStart.Margin = new System.Windows.Forms.Padding(4);
+            this.pbStart.Margin = new System.Windows.Forms.Padding(0);
             this.pbStart.Name = "pbStart";
             this.pbStart.Size = new System.Drawing.Size(350, 117);
             this.pbStart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -66,7 +66,8 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Controls.Add(this.pbStart);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "TelaInicial";
             this.Size = new System.Drawing.Size(1280, 720);
             ((System.ComponentModel.ISupportInitialize)(this.pbStart)).EndInit();
