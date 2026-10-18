@@ -15,12 +15,59 @@ namespace Kalculate_KoalaBoy
         public TelaPrincipal()
         {
             InitializeComponent();
-
-            TelaInicial telaInicial = new TelaInicial();
-
-            telaInicial.Dock = DockStyle.Fill;
-
-            panelPrincipal.Controls.Add(telaInicial);
+            AtivarDoubleBuffered(this);
+            MostrarTelaInicial();
         }
+
+        #region Exibir TelaInicial
+        public void MostrarTelaInicial()
+        {
+            panelPrincipal.Controls.Clear();
+
+            TelaInicial tela = new TelaInicial();
+            tela.Dock = DockStyle.Fill;
+
+            panelPrincipal.Controls.Add(tela);
+        }
+        #endregion
+
+        #region Exibir TelaBatalha
+        public void MostrarTelaBatalha()
+        {
+            panelPrincipal.Controls.Clear();
+
+            TelaBatalha tela = new TelaBatalha();
+            tela.Dock = DockStyle.Fill;
+
+            panelPrincipal.Controls.Add(tela);
+        }
+        #endregion
+
+        #region DoubleBuffered em Paineis
+        private void AtivarDoubleBuffered(Control controle)
+        {
+            if (controle is Panel)
+            {
+                typeof(Control)
+                    .GetProperty("DoubleBuffered",
+                        System.Reflection.BindingFlags.Instance |
+                        System.Reflection.BindingFlags.NonPublic)
+                    ?.SetValue(controle, true);
+            }
+
+            controle.ControlAdded -= ControleAdicionado;
+            controle.ControlAdded += ControleAdicionado;
+
+            foreach (Control controleFilho in controle.Controls)
+            {
+                AtivarDoubleBuffered(controleFilho);
+            }
+        }
+
+        private void ControleAdicionado(object sender, ControlEventArgs e)
+        {
+            AtivarDoubleBuffered(e.Control);
+        }
+        #endregion
     }
 }
