@@ -37,20 +37,21 @@
             this.panelPrincipal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelPrincipal.Location = new System.Drawing.Point(0, 0);
+            this.panelPrincipal.Margin = new System.Windows.Forms.Padding(2);
             this.panelPrincipal.Name = "panelPrincipal";
-            this.panelPrincipal.Size = new System.Drawing.Size(1262, 673);
+            this.panelPrincipal.Size = new System.Drawing.Size(1280, 720);
             this.panelPrincipal.TabIndex = 0;
             // 
             // TelaPrincipal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1262, 673);
+            this.ClientSize = new System.Drawing.Size(1280, 720);
             this.Controls.Add(this.panelPrincipal);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "TelaPrincipal";
             this.Text = "KalculateKoalaBoy";
             this.ResumeLayout(false);

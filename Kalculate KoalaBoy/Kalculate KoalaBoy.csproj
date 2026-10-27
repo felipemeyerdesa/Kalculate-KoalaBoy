@@ -56,11 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FontesJogo.cs" />
-    <Compile Include="TelaBatalha.cs">
+    <Compile Include="TelaBatalhaDialogo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TelaBatalha.Designer.cs">
-      <DependentUpon>TelaBatalha.cs</DependentUpon>
+    <Compile Include="TelaBatalhaDialogo.Designer.cs">
+      <DependentUpon>TelaBatalhaDialogo.cs</DependentUpon>
     </Compile>
     <Compile Include="TelaPrincipal.cs">
       <SubType>Form</SubType>
@@ -76,8 +76,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="TelaBatalha.resx">
-      <DependentUpon>TelaBatalha.cs</DependentUpon>
+    <Compile Include="TelaBatalhaPerguntas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TelaBatalhaPerguntas.Designer.cs">
+      <DependentUpon>TelaBatalhaPerguntas.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="TelaBatalhaDialogo.resx">
+      <DependentUpon>TelaBatalhaDialogo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TelaPrincipal.resx">
       <DependentUpon>TelaPrincipal.cs</DependentUpon>
@@ -94,6 +100,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TelaBatalhaPerguntas.resx">
+      <DependentUpon>TelaBatalhaPerguntas.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.manifest" />
     <Content Include="Fontes\PressStart2P-Regular.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
