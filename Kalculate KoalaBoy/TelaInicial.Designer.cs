@@ -43,10 +43,10 @@
             this.pbBotaoStart.BackColor = System.Drawing.Color.Transparent;
             this.pbBotaoStart.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbBotaoStart.Image = ((System.Drawing.Image)(resources.GetObject("pbBotaoStart.Image")));
-            this.pbBotaoStart.Location = new System.Drawing.Point(345, 302);
+            this.pbBotaoStart.Location = new System.Drawing.Point(490, 343);
             this.pbBotaoStart.Margin = new System.Windows.Forms.Padding(0);
             this.pbBotaoStart.Name = "pbBotaoStart";
-            this.pbBotaoStart.Size = new System.Drawing.Size(270, 85);
+            this.pbBotaoStart.Size = new System.Drawing.Size(300, 115);
             this.pbBotaoStart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbBotaoStart.TabIndex = 0;
             this.pbBotaoStart.TabStop = false;
@@ -59,16 +59,17 @@
             // timerBotaoStart
             // 
             this.timerBotaoStart.Interval = 15;
-            this.timerBotaoStart.Tick += new System.EventHandler(this.timerBotao_Tick);
+            this.timerBotaoStart.Tick += new System.EventHandler(this.timerBotaoStart_Tick);
             // 
             // pbLogo
             // 
+            this.pbLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pbLogo.BackColor = System.Drawing.Color.Transparent;
             this.pbLogo.Image = ((System.Drawing.Image)(resources.GetObject("pbLogo.Image")));
-            this.pbLogo.Location = new System.Drawing.Point(236, 12);
+            this.pbLogo.Location = new System.Drawing.Point(386, 12);
             this.pbLogo.Margin = new System.Windows.Forms.Padding(2);
             this.pbLogo.Name = "pbLogo";
-            this.pbLogo.Size = new System.Drawing.Size(488, 228);
+            this.pbLogo.Size = new System.Drawing.Size(510, 245);
             this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbLogo.TabIndex = 1;
             this.pbLogo.TabStop = false;
@@ -84,7 +85,7 @@
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "TelaInicial";
-            this.Size = new System.Drawing.Size(960, 585);
+            this.Size = new System.Drawing.Size(1280, 720);
             this.Load += new System.EventHandler(this.TelaInicial_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbBotaoStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();

@@ -7,6 +7,10 @@ namespace Kalculate_KoalaBoy
         private readonly Mapa mapa;
         private UserControl telaAtual;
 
+        public int BatalhaAtual { get; private set; } = 1;
+        public TelaBatalhaDialogo telaDialogo;
+        public TelaBatalhaPerguntas telaPerguntas;
+
         public TelaPrincipal()
         {
             InitializeComponent();
@@ -36,14 +40,36 @@ namespace Kalculate_KoalaBoy
 
         private void MostrarTelaBatalha(int fase)
         {
-            ExibirTela(new TelaBatalha(fase));
+            BatalhaAtual = fase;
+            MostrarTelaBatalhaDialogo();
+        }
+
+        public void MostrarTelaBatalhaDialogo()
+        {
+            if (telaDialogo == null)
+                telaDialogo = new TelaBatalhaDialogo(this);
+
+            telaDialogo.ConfigurarCenario();
+            ExibirTela(telaDialogo);
+        }
+
+        public void MostrarTelaBatalhaPerguntas()
+        {
+            if (telaPerguntas == null)
+                telaPerguntas = new TelaBatalhaPerguntas(this);
+
+            telaPerguntas.ConfigurarCenario();
+            ExibirTela(telaPerguntas);
         }
 
         private void ExibirTela(UserControl tela)
         {
-            if (telaAtual == mapa)
+            if (telaAtual == tela)
+                return;
+
+            if (telaAtual == mapa || telaAtual == telaDialogo || telaAtual == telaPerguntas)
             {
-                mapa.Hide();
+                telaAtual?.Hide();
             }
             else if (telaAtual != null)
             {
@@ -64,3 +90,4 @@ namespace Kalculate_KoalaBoy
         #endregion
     }
 }
+

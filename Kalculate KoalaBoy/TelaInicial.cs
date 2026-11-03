@@ -21,98 +21,99 @@ namespace Kalculate_KoalaBoy
 
         }
 
-        #region AnimaçãoBotãoStart
+        #region Botão Start
+        private void pbStart_Click(object sender, EventArgs e)
+        {
+            JogoIniciado?.Invoke();
+        }
+        #endregion
 
-        private int larguraAlvoStart = 270;
-        private int alturaAlvoStart = 85;
+        #region AnimaçãoBotãoStart
+        private int larguraAlvoStart = 300;
+        private int alturaAlvoStart = 115;
         private bool mouseEmCimaStart = false;
 
-        //animação hover
+        // MOUSE ENTER
         private void pbStart_MouseEnter(object sender, EventArgs e)
         {
             mouseEmCimaStart = true;
 
-            larguraAlvoStart = 302;
-            alturaAlvoStart = 95;
+            larguraAlvoStart = 332;
+            alturaAlvoStart = 125;
 
             timerBotaoStart.Start();
         }
 
+        // MOUSE LEAVE
         private void pbStart_MouseLeave(object sender, EventArgs e)
         {
             mouseEmCimaStart = false;
 
-            larguraAlvoStart = 270;
-            alturaAlvoStart = 85;
+            larguraAlvoStart = 300;
+            alturaAlvoStart = 115;
 
             timerBotaoStart.Start();
         }
 
-        //animação clique
+        // MOUSE DOWN
         private void pbStart_MouseDown(object sender, MouseEventArgs e)
         {
-            larguraAlvoStart = 262;
-            alturaAlvoStart = 81;
+            larguraAlvoStart = 272;
+            alturaAlvoStart = 99;
 
             timerBotaoStart.Start();
         }
 
+        // MOUSE UP
         private void pbStart_MouseUp(object sender, MouseEventArgs e)
         {
             if (mouseEmCimaStart == true)
             {
-                larguraAlvoStart = 302;
-                alturaAlvoStart = 95;
+                larguraAlvoStart = 332;
+                alturaAlvoStart = 125;
             }
             else
             {
-                larguraAlvoStart = 270;
-                alturaAlvoStart = 85;
+                larguraAlvoStart = 300;
+                alturaAlvoStart = 115;
             }
 
             timerBotaoStart.Start();
         }
 
-        private void timerBotao_Tick(object sender, EventArgs e)
+        // TIMER
+        private void timerBotaoStart_Tick(object sender, EventArgs e)
         {
             //largura
 
             if (pbBotaoStart.Width < larguraAlvoStart)
             {
-                pbBotaoStart.Width += 2;
-                pbBotaoStart.Left -= 1;
+                pbBotaoStart.Width += 4;
+                pbBotaoStart.Left -= 2;
             }
-            else if(pbBotaoStart.Width > larguraAlvoStart)
+            else if (pbBotaoStart.Width > larguraAlvoStart)
             {
-                pbBotaoStart.Width -= 2;
-                pbBotaoStart.Left += 1;
+                pbBotaoStart.Width -= 4;
+                pbBotaoStart.Left += 2;
             }
 
             //altura
 
             if (pbBotaoStart.Height < alturaAlvoStart)
             {
-                pbBotaoStart.Height += 2;
-                pbBotaoStart.Top -= 1;
+                pbBotaoStart.Height += 4;
+                pbBotaoStart.Top -= 2;
             }
             else if (pbBotaoStart.Height > alturaAlvoStart)
             {
-                pbBotaoStart.Height -= 2;
-                pbBotaoStart.Top += 1;
+                pbBotaoStart.Height -= 4;
+                pbBotaoStart.Top += 2;
             }
 
             if (pbBotaoStart.Width == larguraAlvoStart && pbBotaoStart.Height == alturaAlvoStart)
             {
                 timerBotaoStart.Stop();
             }
-        }
-
-        #endregion
-
-        #region Botão Start
-        private void pbStart_Click(object sender, EventArgs e)
-        {
-            JogoIniciado?.Invoke();
         }
         #endregion
 
@@ -122,6 +123,8 @@ namespace Kalculate_KoalaBoy
             pbLogo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaInicial", "KoalaLogo.gif"));
         }
         #endregion
+
+       
     }
 }
 
