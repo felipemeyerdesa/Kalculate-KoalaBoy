@@ -22,7 +22,7 @@ namespace Kalculate_KoalaBoy
         }
 
         #region Variaveis
-        public int BatalhaAtual = 1;
+        public int BatalhaAtual = 3;
         public TelaBatalhaDialogo telaDialogo;
         public TelaBatalhaPerguntas telaPerguntas;
         #endregion
@@ -44,7 +44,7 @@ namespace Kalculate_KoalaBoy
         {
             if (telaDialogo == null)
             { 
-                telaDialogo = new TelaBatalhaDialogo();
+                telaDialogo = new TelaBatalhaDialogo(this);
                 telaDialogo.Dock = DockStyle.Fill;
                 panelPrincipal.Controls.Add(telaDialogo);
             }
@@ -54,9 +54,9 @@ namespace Kalculate_KoalaBoy
                 telaPerguntas.Hide();
             }
 
+            telaDialogo.ConfigurarCenario();
             telaDialogo.Show();
             telaDialogo.BringToFront();
-            panelPrincipal.Refresh();
         }
         #endregion
 
@@ -65,7 +65,7 @@ namespace Kalculate_KoalaBoy
         {
             if (telaPerguntas == null)
             {
-                telaPerguntas = new TelaBatalhaPerguntas();
+                telaPerguntas = new TelaBatalhaPerguntas(this);
                 telaPerguntas.Dock = DockStyle.Fill;
                 panelPrincipal.Controls.Add(telaPerguntas);
             }
@@ -75,10 +75,9 @@ namespace Kalculate_KoalaBoy
                 telaDialogo.Hide();
             }
 
+            telaPerguntas.ConfigurarCenario();
             telaPerguntas.Show();
             telaPerguntas.BringToFront();
-
-            panelPrincipal.Refresh();
         }
         #endregion
 
