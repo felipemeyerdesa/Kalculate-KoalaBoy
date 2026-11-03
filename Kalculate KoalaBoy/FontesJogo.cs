@@ -9,16 +9,19 @@ namespace Kalculate_KoalaBoy
 {
     internal static class FontesJogo
     {
+        // Coleção que armazena as fontes personalizadas
         private static readonly PrivateFontCollection fontes = new PrivateFontCollection();
 
         static FontesJogo()
         {
-            string caminho = Path.Combine( AppDomain.CurrentDomain.BaseDirectory,"Fontes","PressStart2P-Regular.ttf");
+            // Localiza e carrega a fonte da pasta Fontes
+            string caminho = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fontes", "PressStart2P-Regular.ttf");
             fontes.AddFontFile(caminho);
         }
 
-        public static void AplicarEmLabels(Control controle)
+        public static void AplicarFonte(Control controle)
         {
+            // Percorre os controles e procura Labels
             foreach (Control controleFilho in controle.Controls)
             {
                 if (controleFilho is Label label)
@@ -27,12 +30,14 @@ namespace Kalculate_KoalaBoy
 
                     label.UseCompatibleTextRendering = true;
 
-                    label.Font = new Font(fontes.Families[0],fonteOriginal.Size,FontStyle.Regular,fonteOriginal.Unit);
+                    // Aplica a fonte mantendo o tamanho original
+                    label.Font = new Font(fontes.Families[0], fonteOriginal.Size, FontStyle.Regular, fonteOriginal.Unit);
                 }
 
+                // Procura também dentro de outros controles
                 if (controleFilho.HasChildren)
                 {
-                    AplicarEmLabels(controleFilho);
+                    AplicarFonte(controleFilho);
                 }
             }
         }

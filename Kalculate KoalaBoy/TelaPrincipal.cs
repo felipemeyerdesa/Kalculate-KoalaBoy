@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace Kalculate_KoalaBoy
 {
@@ -15,9 +16,16 @@ namespace Kalculate_KoalaBoy
         public TelaPrincipal()
         {
             InitializeComponent();
+
             AtivarDoubleBuffered(this);
             MostrarTelaInicial();
         }
+
+        #region Variaveis
+        public int BatalhaAtual = 3;
+        public TelaBatalhaDialogo telaDialogo;
+        public TelaBatalhaPerguntas telaPerguntas;
+        #endregion
 
         #region Exibir TelaInicial
         public void MostrarTelaInicial()
@@ -31,27 +39,55 @@ namespace Kalculate_KoalaBoy
         }
         #endregion
 
-        #region Exibir TelaBatalha
-        public void MostrarTelaBatalha()
+        #region Exibir TelaBatalhaDialogo
+        public void MostrarTelaBatalhaDialogo()
         {
-            panelPrincipal.Controls.Clear();
+            if (telaDialogo == null)
+            { 
+                telaDialogo = new TelaBatalhaDialogo(this);
+                telaDialogo.Dock = DockStyle.Fill;
+                panelPrincipal.Controls.Add(telaDialogo);
+            }
 
-            TelaBatalha tela = new TelaBatalha();
-            tela.Dock = DockStyle.Fill;
+            if (telaPerguntas != null)
+            {
+                telaPerguntas.Hide();
+            }
 
-            panelPrincipal.Controls.Add(tela);
+            telaDialogo.ConfigurarCenario();
+            telaDialogo.Show();
+            telaDialogo.BringToFront();
+        }
+        #endregion
+
+        #region Exibir TelaBatalhaPerguntas
+        public void MostrarTelaBatalhaPerguntas()
+        {
+            if (telaPerguntas == null)
+            {
+                telaPerguntas = new TelaBatalhaPerguntas(this);
+                telaPerguntas.Dock = DockStyle.Fill;
+                panelPrincipal.Controls.Add(telaPerguntas);
+            }
+
+            if (telaDialogo != null)
+            {
+                telaDialogo.Hide();
+            }
+
+            telaPerguntas.ConfigurarCenario();
+            telaPerguntas.Show();
+            telaPerguntas.BringToFront();
         }
         #endregion
 
         #region DoubleBuffered em Paineis
-        private void AtivarDoubleBuffered(Control controle)
+        public void AtivarDoubleBuffered(Control controle)
         {
             if (controle is Panel)
             {
                 typeof(Control)
-                    .GetProperty("DoubleBuffered",
-                        System.Reflection.BindingFlags.Instance |
-                        System.Reflection.BindingFlags.NonPublic)
+                    .GetProperty("DoubleBuffered",BindingFlags.Instance | BindingFlags.NonPublic)
                     ?.SetValue(controle, true);
             }
 
