@@ -69,5 +69,15 @@ namespace Kalculate_KoalaBoy
             AtivarDoubleBuffered(e.Control);
         }
         #endregion
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelPrincipal_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
