@@ -62,6 +62,12 @@
     <Compile Include="TelaBatalha.Designer.cs">
       <DependentUpon>TelaBatalha.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mapa.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mapa.Designer.cs">
+      <DependentUpon>Mapa.cs</DependentUpon>
+    </Compile>
     <Compile Include="TelaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="TelaBatalha.resx">
       <DependentUpon>TelaBatalha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapa.resx">
+      <DependentUpon>Mapa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TelaPrincipal.resx">
       <DependentUpon>TelaPrincipal.cs</DependentUpon>

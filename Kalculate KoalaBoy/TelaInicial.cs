@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +13,8 @@ namespace Kalculate_KoalaBoy
 {
     public partial class TelaInicial : UserControl
     {
+        public event Action JogoIniciado;
+
         public TelaInicial()
         {
             InitializeComponent();
@@ -110,9 +112,7 @@ namespace Kalculate_KoalaBoy
         #region Botão Start
         private void pbStart_Click(object sender, EventArgs e)
         {
-            TelaPrincipal principal = (TelaPrincipal)this.FindForm();
-
-            principal.MostrarTelaBatalha();
+            JogoIniciado?.Invoke();
         }
         #endregion
 
@@ -124,3 +124,4 @@ namespace Kalculate_KoalaBoy
         #endregion
     }
 }
+

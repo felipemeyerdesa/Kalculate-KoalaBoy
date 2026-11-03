@@ -1,83 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Kalculate_KoalaBoy
 {
     public partial class TelaPrincipal : Form
     {
+        private readonly Mapa mapa;
+        private UserControl telaAtual;
+
         public TelaPrincipal()
         {
             InitializeComponent();
-            AtivarDoubleBuffered(this);
+
+            mapa = new Mapa { Dock = DockStyle.Fill, Visible = false };
+            mapa.FaseEscolhida += MostrarTelaBatalha;
+            panelPrincipal.Controls.Add(mapa);
+
             MostrarTelaInicial();
         }
 
-        #region Exibir TelaInicial
+        #region Navegação entre telas
+
         public void MostrarTelaInicial()
         {
-            panelPrincipal.Controls.Clear();
-
-            TelaInicial tela = new TelaInicial();
-            tela.Dock = DockStyle.Fill;
-
-            panelPrincipal.Controls.Add(tela);
+            var inicio = new TelaInicial();
+            inicio.JogoIniciado += MostrarMapa;
+            ExibirTela(inicio);
         }
-        #endregion
 
-        #region Exibir TelaBatalha
-        public void MostrarTelaBatalha()
+        public void MostrarMapa()
         {
-            panelPrincipal.Controls.Clear();
-
-            TelaBatalha tela = new TelaBatalha();
-            tela.Dock = DockStyle.Fill;
-
-            panelPrincipal.Controls.Add(tela);
+            ExibirTela(mapa);
+            mapa.AtualizarVisual();
+            mapa.Focus();
         }
-        #endregion
 
-        #region DoubleBuffered em Paineis
-        private void AtivarDoubleBuffered(Control controle)
+        private void MostrarTelaBatalha(int fase)
         {
-            if (controle is Panel)
+            ExibirTela(new TelaBatalha(fase));
+        }
+
+        private void ExibirTela(UserControl tela)
+        {
+            if (telaAtual == mapa)
             {
-                typeof(Control)
-                    .GetProperty("DoubleBuffered",
-                        System.Reflection.BindingFlags.Instance |
-                        System.Reflection.BindingFlags.NonPublic)
-                    ?.SetValue(controle, true);
+                mapa.Hide();
+            }
+            else if (telaAtual != null)
+            {
+                panelPrincipal.Controls.Remove(telaAtual);
+                telaAtual.Dispose();
             }
 
-            controle.ControlAdded -= ControleAdicionado;
-            controle.ControlAdded += ControleAdicionado;
+            telaAtual = tela;
+            tela.Dock = DockStyle.Fill;
 
-            foreach (Control controleFilho in controle.Controls)
-            {
-                AtivarDoubleBuffered(controleFilho);
-            }
+            if (tela.Parent != panelPrincipal)
+                panelPrincipal.Controls.Add(tela);
+
+            tela.Show();
+            tela.BringToFront();
         }
 
-        private void ControleAdicionado(object sender, ControlEventArgs e)
-        {
-            AtivarDoubleBuffered(e.Control);
-        }
         #endregion
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panelPrincipal_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

@@ -13,8 +13,16 @@ namespace Kalculate_KoalaBoy
 {
     public partial class TelaBatalha : UserControl
     {
+        public int FaseId { get; }
+
         public TelaBatalha()
+            : this(1)
         {
+        }
+
+        public TelaBatalha(int faseId)
+        {
+            FaseId = faseId;
             InitializeComponent();
 
             FontesJogo.AplicarEmLabels(this);
