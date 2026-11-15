@@ -62,6 +62,12 @@
     <Compile Include="TelaBatalhaDialogo.Designer.cs">
       <DependentUpon>TelaBatalhaDialogo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mapa.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mapa.Designer.cs">
+      <DependentUpon>Mapa.cs</DependentUpon>
+    </Compile>
     <Compile Include="TelaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +90,9 @@
     </Compile>
     <EmbeddedResource Include="TelaBatalhaDialogo.resx">
       <DependentUpon>TelaBatalhaDialogo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapa.resx">
+      <DependentUpon>Mapa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TelaPrincipal.resx">
       <DependentUpon>TelaPrincipal.cs</DependentUpon>

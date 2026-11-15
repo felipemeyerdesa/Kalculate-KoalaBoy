@@ -50,14 +50,14 @@ namespace Kalculate_KoalaBoy
         {
             if (inimigohp == 0)
             {
-                await principal.telaDialogo.EncerrarBatalha(1);
+                principal.telaDialogo.EncerrarBatalha(1, koalahp);
                 principal.MostrarTelaBatalhaDialogo();
                 return;
             }
 
             if (koalahp == 0)
             {
-                await principal.telaDialogo.EncerrarBatalha(2);
+                principal.telaDialogo.EncerrarBatalha(2, koalahp);
                 principal.MostrarTelaBatalhaDialogo();
                 return;
             }
