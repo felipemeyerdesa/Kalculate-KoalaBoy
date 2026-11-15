@@ -1,3 +1,5 @@
+using System;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace Kalculate_KoalaBoy
@@ -14,6 +16,8 @@ namespace Kalculate_KoalaBoy
         public TelaPrincipal()
         {
             InitializeComponent();
+            DoubleBuffered = true;
+            AtivarDoubleBuffered(this);
 
             mapa = new Mapa { Dock = DockStyle.Fill, Visible = false };
             mapa.FaseEscolhida += MostrarTelaBatalha;
@@ -42,6 +46,20 @@ namespace Kalculate_KoalaBoy
         {
             BatalhaAtual = fase;
             MostrarTelaBatalhaDialogo();
+        }
+
+        public void VoltarAoMapaAposBatalha(bool venceu, int vidaRestante)
+        {
+            if (telaAtual != telaDialogo || telaDialogo == null)
+                return;
+
+            mapa.RegistrarResultado(BatalhaAtual, venceu, vidaRestante);
+            MostrarMapa();
+
+            telaDialogo.Dispose();
+            telaPerguntas?.Dispose();
+            telaDialogo = null;
+            telaPerguntas = null;
         }
 
         public void MostrarTelaBatalhaDialogo()
@@ -85,6 +103,31 @@ namespace Kalculate_KoalaBoy
 
             tela.Show();
             tela.BringToFront();
+        }
+
+        #endregion
+
+        #region Double buffering dos painéis
+
+        private void AtivarDoubleBuffered(Control controle)
+        {
+            if (controle is Panel)
+            {
+                typeof(Control)
+                    .GetProperty("DoubleBuffered",
+                        BindingFlags.Instance | BindingFlags.NonPublic)
+                    ?.SetValue(controle, true);
+            }
+
+            controle.ControlAdded += ControleAdicionado;
+
+            foreach (Control filho in controle.Controls)
+                AtivarDoubleBuffered(filho);
+        }
+
+        private void ControleAdicionado(object sender, ControlEventArgs e)
+        {
+            AtivarDoubleBuffered(e.Control);
         }
 
         #endregion

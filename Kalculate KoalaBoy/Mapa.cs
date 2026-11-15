@@ -10,6 +10,7 @@ namespace Kalculate_KoalaBoy
         private int vidasGerais = 3;
         private int posicaoAtual;
         private int ultimaFaseLiberada = 1;
+        private readonly int[] estrelasPorFase = new int[8];
 
         public event Action<int> FaseEscolhida;
 
@@ -17,6 +18,12 @@ namespace Kalculate_KoalaBoy
         {
             InitializeComponent();
             btnJogarFase.Click += (sender, e) => JogarFase();
+            PictureBox[] casas = ObterCasas();
+            for (int i = 0; i < casas.Length; i++)
+            {
+                int fase = i;
+                casas[i].Click += (sender, e) => SelecionarFase(fase);
+            }
             panelDescricaoFase.Hide();
         }
 
@@ -24,6 +31,21 @@ namespace Kalculate_KoalaBoy
         {
             PosicionarJogador();
             AtualizarVidasGerais();
+        }
+
+        public void RegistrarResultado(int fase, bool venceu, int vidaRestante)
+        {
+            if (venceu)
+            {
+                int estrelas = Math.Min(3, vidaRestante);
+                estrelasPorFase[fase] = Math.Max(estrelasPorFase[fase], estrelas);
+                ultimaFaseLiberada = Math.Max(ultimaFaseLiberada,
+                    Math.Min(fase + 1, estrelasPorFase.Length - 1));
+            }
+            else if (vidasGerais > 0)
+            {
+                vidasGerais--;
+            }
         }
 
         private void JogarFase()
@@ -84,6 +106,8 @@ namespace Kalculate_KoalaBoy
             lblNomeInimigo.Text = fases[indice, 0];
             lblCurso.Text = fases[indice, 1];
             lblOperacao.Text = "Operações: " + fases[indice, 2];
+            int estrelas = estrelasPorFase[posicaoAtual];
+            lblEstrelas.Text = new string('★', estrelas) + new string('☆', 3 - estrelas);
 
             btnJogarFase.Enabled = vidasGerais > 0 &&
                 posicaoAtual <= ultimaFaseLiberada;
@@ -148,11 +172,13 @@ namespace Kalculate_KoalaBoy
 
         private void MoverJogador(int direcao)
         {
-            PictureBox[] casas = ObterCasas();
-            int destino = posicaoAtual + direcao;
+            SelecionarFase(posicaoAtual + direcao);
+        }
 
+        private void SelecionarFase(int destino)
+        {
             if (destino < 0 ||
-                destino >= casas.Length ||
+                destino >= estrelasPorFase.Length ||
                 destino > ultimaFaseLiberada)
             {
                 return;

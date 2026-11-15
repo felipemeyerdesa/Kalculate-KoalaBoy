@@ -35,6 +35,8 @@ namespace Kalculate_KoalaBoy
 
         #region Dialogos
         private int dialogoAtual = 1;
+        private int vencedor;
+        private int vidaRestante;
 
         private void Dialogo()
         {
@@ -436,8 +438,10 @@ namespace Kalculate_KoalaBoy
         #endregion
 
         #region Batalha Encerrada
-        public async Task EncerrarBatalha (int vencedor)
+        public void EncerrarBatalha(int vencedor, int vidaRestante)
         {
+            this.vencedor = vencedor;
+            this.vidaRestante = vidaRestante;
             #region ArqUrb
             if (principal.BatalhaAtual == 1)
             {
@@ -691,6 +695,13 @@ namespace Kalculate_KoalaBoy
         #region Botão Skip
         private async void pbBotaoSkip_Click(object sender, EventArgs e)
         {
+            if ((vencedor == 1 && dialogoAtual == 6) ||
+                (vencedor == 2 && dialogoAtual == 8))
+            {
+                principal.VoltarAoMapaAposBatalha(vencedor == 1, vidaRestante);
+                return;
+            }
+
             dialogoAtual++;
             if (dialogoAtual == 5)
             {

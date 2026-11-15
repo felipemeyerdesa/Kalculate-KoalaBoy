@@ -57,6 +57,7 @@ namespace Kalculate_KoalaBoy
             this.lblOperacao = new System.Windows.Forms.Label();
             this.btnJogarFase = new System.Windows.Forms.Button();
             this.pbInimigoDescricao = new System.Windows.Forms.PictureBox();
+            this.lblEstrelas = new System.Windows.Forms.Label();
             this.panelMapa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbJogador)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).BeginInit();
@@ -330,6 +331,7 @@ namespace Kalculate_KoalaBoy
             this.panelDescricaoFase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panelDescricaoFase.BackColor = System.Drawing.Color.White;
             this.panelDescricaoFase.Controls.Add(this.pbInimigoDescricao);
+            this.panelDescricaoFase.Controls.Add(this.lblEstrelas);
             this.panelDescricaoFase.Controls.Add(this.btnJogarFase);
             this.panelDescricaoFase.Controls.Add(this.lblOperacao);
             this.panelDescricaoFase.Controls.Add(this.lblCurso);
@@ -380,6 +382,16 @@ namespace Kalculate_KoalaBoy
             this.pbInimigoDescricao.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbInimigoDescricao.TabIndex = 4;
             this.pbInimigoDescricao.TabStop = false;
+            //
+            // lblEstrelas
+            //
+            this.lblEstrelas.Font = new System.Drawing.Font("Segoe UI Symbol", 15F);
+            this.lblEstrelas.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.lblEstrelas.Location = new System.Drawing.Point(12, 294);
+            this.lblEstrelas.Name = "lblEstrelas";
+            this.lblEstrelas.Size = new System.Drawing.Size(256, 30);
+            this.lblEstrelas.Text = "☆☆☆";
+            this.lblEstrelas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mapa
             // 
@@ -444,6 +456,7 @@ namespace Kalculate_KoalaBoy
         private System.Windows.Forms.Panel panelDescricaoFase;
         private System.Windows.Forms.Label lblNomeInimigo;
         private System.Windows.Forms.PictureBox pbInimigoDescricao;
+        private System.Windows.Forms.Label lblEstrelas;
         private System.Windows.Forms.Button btnJogarFase;
         private System.Windows.Forms.Label lblOperacao;
         private System.Windows.Forms.Label lblCurso;
