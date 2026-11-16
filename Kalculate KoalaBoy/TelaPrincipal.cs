@@ -18,13 +18,19 @@ namespace Kalculate_KoalaBoy
             InitializeComponent();
 
             AtivarDoubleBuffered(this);
-            MostrarTelaInicial();
+            //MostrarTelaInicial();
+            MostrarTelaHistoria();
+            
         }
 
         #region Variaveis
-        public int BatalhaAtual = 3;
+        public int BatalhaAtual = 0;
+        public TelaInicial telaInicial;
+        public TelaHistoria telaHistoria;
         public TelaBatalhaDialogo telaDialogo;
         public TelaBatalhaPerguntas telaPerguntas;
+        public TelaResultados telaResultados;
+        public int pontuacaoTotal = 0;
         #endregion
 
         #region Exibir TelaInicial
@@ -32,10 +38,30 @@ namespace Kalculate_KoalaBoy
         {
             panelPrincipal.Controls.Clear();
 
-            TelaInicial tela = new TelaInicial();
-            tela.Dock = DockStyle.Fill;
+            telaInicial = new TelaInicial();
+            telaInicial.Dock = DockStyle.Fill;
 
-            panelPrincipal.Controls.Add(tela);
+            panelPrincipal.Controls.Add(telaInicial);
+        }
+        #endregion
+
+        #region Exibir TelaHistoria
+        public void MostrarTelaHistoria()
+        {
+            if (telaHistoria == null)
+            {
+                telaHistoria = new TelaHistoria(this);
+                telaHistoria.Dock = DockStyle.Fill;
+                panelPrincipal.Controls.Add(telaHistoria);
+            }
+
+            if (telaDialogo != null)
+            {
+                telaDialogo.Hide();
+            }
+
+            telaHistoria.Show();
+            telaHistoria.BringToFront();
         }
         #endregion
 
@@ -49,6 +75,10 @@ namespace Kalculate_KoalaBoy
                 panelPrincipal.Controls.Add(telaDialogo);
             }
 
+            if (telaHistoria != null)
+            {
+                telaHistoria.Hide();
+            }
             if (telaPerguntas != null)
             {
                 telaPerguntas.Hide();
@@ -75,9 +105,31 @@ namespace Kalculate_KoalaBoy
                 telaDialogo.Hide();
             }
 
+            telaPerguntas.ReiniciarPontuacao();
             telaPerguntas.ConfigurarCenario();
             telaPerguntas.Show();
             telaPerguntas.BringToFront();
+        }
+        #endregion
+
+        #region Exibir TelaResultados
+        public void MostrarTelaResultados()
+        {
+            if (telaResultados == null)
+            {
+                telaResultados = new TelaResultados(this);
+                telaResultados.Dock = DockStyle.Fill;
+                panelPrincipal.Controls.Add(telaResultados);
+            }
+
+            if (telaDialogo != null)
+            {
+                telaDialogo.Hide();
+            }
+
+            telaResultados.ConfigurarCenario();
+            telaResultados.Show();
+            telaResultados.BringToFront();
         }
         #endregion
 
