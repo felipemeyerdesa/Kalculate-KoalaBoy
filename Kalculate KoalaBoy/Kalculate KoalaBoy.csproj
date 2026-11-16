@@ -94,11 +94,20 @@
     <Compile Include="TelaResultados.Designer.cs">
       <DependentUpon>TelaResultados.cs</DependentUpon>
     </Compile>
+    <Compile Include="TelaLobby.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TelaLobby.Designer.cs">
+      <DependentUpon>TelaLobby.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="TelaBatalhaDialogo.resx">
       <DependentUpon>TelaBatalhaDialogo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TelaHistoria.resx">
       <DependentUpon>TelaHistoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TelaLobby.resx">
+      <DependentUpon>TelaLobby.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TelaPrincipal.resx">
       <DependentUpon>TelaPrincipal.cs</DependentUpon>
