@@ -11,25 +11,33 @@ namespace Kalculate_KoalaBoy
         private int posicaoAtual;
         private int ultimaFaseLiberada = 1;
         private readonly int[] estrelasPorFase = new int[8];
+        private const int UltimaFaseDoMapaAtual = 4;
+        private readonly Size tamanhoOriginalMapa;
+        private readonly Rectangle[] posicoesOriginais;
 
         public event Action<int> FaseEscolhida;
 
         public Mapa()
         {
+
             InitializeComponent();
+
             btnJogarFase.Click += (sender, e) => JogarFase();
             PictureBox[] casas = ObterCasas();
+            tamanhoOriginalMapa = panelMapa.ClientSize;
+            posicoesOriginais = Array.ConvertAll(casas, casa => casa.Bounds);
             for (int i = 0; i < casas.Length; i++)
             {
                 int fase = i;
                 casas[i].Click += (sender, e) => SelecionarFase(fase);
             }
+            panelMapa.SizeChanged += (sender, e) => AjustarCaixinhas();
             panelDescricaoFase.Hide();
         }
 
         public void AtualizarVisual()
         {
-            PosicionarJogador();
+            AjustarCaixinhas();
             AtualizarVidasGerais();
         }
 
@@ -60,28 +68,15 @@ namespace Kalculate_KoalaBoy
 
         #region Painel de descrição da fase
 
-        private void PosicionarPainelDescricao()
+        private static readonly string[] imagensDosMenus =
         {
-            int margem = 15;
-            int centroJogador = pbJogador.Left + pbJogador.Width / 2;
+            "MenuGato.png",
+            "MenuLobo.png",
+            "MenuRaposa.png",
+            "MenuTubarão.png"
+        };
+        private int faseDoMenuExibido;
 
-            if (centroJogador >= panelMapa.ClientSize.Width / 2)
-            {
-                // Jogador à direita: painel à esquerda.
-                panelDescricaoFase.Left = margem;
-            }
-            else
-            {
-                // Jogador à esquerda: painel à direita.
-                panelDescricaoFase.Left =
-                    panelMapa.ClientSize.Width
-                    - panelDescricaoFase.Width
-                    - margem;
-            }
-
-            panelDescricaoFase.Top = margem;
-            panelDescricaoFase.BringToFront();
-        }
         private void AtualizarDescricaoFase()
         {
             if (posicaoAtual == 0)
@@ -90,24 +85,20 @@ namespace Kalculate_KoalaBoy
                 return;
             }
 
-            string[,] fases =
+            if (faseDoMenuExibido != posicaoAtual)
             {
-        { "Gato", "Arquitetura e Urbanismo", "Adição" },
-        { "Lobo", "Biomedicina", "Adição e subtração" },
-        { "Raposa", "Direito", "Adição, subtração e multiplicação" },
-        { "Tubarão", "Educação Física", "Adição, subtração, multiplicação e divisão" },
-        { "Gorila", "Artes e Comunicação", "Operações básicas e porcentagem" },
-        { "Puma", "Comércio Exterior", "Operações combinadas" },
-        { "Urubu", "Engenharia", "Operações combinadas avançadas" }
-    };
+                string caminho = Path.Combine(AppContext.BaseDirectory,
+                    "Imagens", "TelaPrincipal", "Menus", imagensDosMenus[posicaoAtual - 1]);
 
-            int indice = posicaoAtual - 1;
+                using (Image imagem = Image.FromFile(caminho))
+                {
+                    Image anterior = panelDescricaoFase.BackgroundImage;
+                    panelDescricaoFase.BackgroundImage = new Bitmap(imagem);
+                    anterior?.Dispose();
+                }
 
-            lblNomeInimigo.Text = fases[indice, 0];
-            lblCurso.Text = fases[indice, 1];
-            lblOperacao.Text = "Operações: " + fases[indice, 2];
-            int estrelas = estrelasPorFase[posicaoAtual];
-            lblEstrelas.Text = new string('★', estrelas) + new string('☆', 3 - estrelas);
+                faseDoMenuExibido = posicaoAtual;
+            }
 
             btnJogarFase.Enabled = vidasGerais > 0 &&
                 posicaoAtual <= ultimaFaseLiberada;
@@ -121,33 +112,14 @@ namespace Kalculate_KoalaBoy
 
         private void AtualizarVidasGerais()
         {
-            PictureBox[] coracoes =
+            string caminho = Path.Combine(AppContext.BaseDirectory, "Imagens",
+                "KoalaBoy", $"koala_{vidasGerais}hp.png");
+
+            using (Image imagem = Image.FromFile(caminho))
             {
-                pbCoracao1,
-                pbCoracao2,
-                pbCoracao3
-            };
-
-            for (int i = 0; i < coracoes.Length; i++)
-            {
-                string arquivo = i < vidasGerais
-                    ? "vida cheia.jpg"
-                    : "vida perdida.jpg";
-
-                string caminho = Path.Combine(
-                    AppContext.BaseDirectory,
-                    "Imagens",
-                    "TelaPrincipal",
-                    arquivo
-                );
-
-                // Copia a imagem para não manter o arquivo preso.
-                using (Image imagem = Image.FromFile(caminho))
-                {
-                    Image anterior = coracoes[i].Image;
-                    coracoes[i].Image = new Bitmap(imagem);
-                    anterior?.Dispose();
-                }
+                Image anterior = pbKoalaVidas.Image;
+                pbKoalaVidas.Image = new Bitmap(imagem);
+                anterior?.Dispose();
             }
         }
 
@@ -164,9 +136,6 @@ namespace Kalculate_KoalaBoy
                 pbFase2,
                 pbFase3,
                 pbFase4,
-                pbFase5,
-                pbFase6,
-                pbFase7
             };
         }
 
@@ -178,7 +147,7 @@ namespace Kalculate_KoalaBoy
         private void SelecionarFase(int destino)
         {
             if (destino < 0 ||
-                destino >= estrelasPorFase.Length ||
+                destino > UltimaFaseDoMapaAtual ||
                 destino > ultimaFaseLiberada)
             {
                 return;
@@ -188,25 +157,35 @@ namespace Kalculate_KoalaBoy
             PosicionarJogador();
         }
 
+        private void AjustarCaixinhas()
+        {
+            double escalaX = (double)panelMapa.ClientSize.Width / tamanhoOriginalMapa.Width;
+            double escalaY = (double)panelMapa.ClientSize.Height / tamanhoOriginalMapa.Height;
+            PictureBox[] casas = ObterCasas();
+
+            for (int i = 0; i < casas.Length; i++)
+            {
+                Rectangle original = posicoesOriginais[i];
+                casas[i].SetBounds(
+                    (int)Math.Round(original.X * escalaX),
+                    (int)Math.Round(original.Y * escalaY),
+                    (int)Math.Round(original.Width * escalaX),
+                    (int)Math.Round(original.Height * escalaY));
+            }
+
+            PosicionarJogador();
+        }
+
         private void PosicionarJogador()
         {
             PictureBox casa = ObterCasas()[posicaoAtual];
-
-            // Converte a posição caso estejam em painéis diferentes.
-            Point centroDaCasa = casa.PointToScreen(
-                new Point(casa.Width / 2, casa.Height / 2)
-            );
-
-            Point destino =
-                pbJogador.Parent.PointToClient(centroDaCasa);
-
             pbJogador.Location = new Point(
-                destino.X - pbJogador.Width / 2,
-                destino.Y - pbJogador.Height / 2
+                casa.Left + (casa.Width - pbJogador.Width) / 2,
+                casa.Top + (casa.Height - pbJogador.Height) / 2
             );
 
             pbJogador.BringToFront();
-            PosicionarPainelDescricao();
+            panelDescricaoFase.BringToFront();
             AtualizarDescricaoFase();
         }
 
