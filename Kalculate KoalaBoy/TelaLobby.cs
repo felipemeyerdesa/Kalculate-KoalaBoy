@@ -13,11 +13,13 @@ namespace Kalculate_KoalaBoy
 {
     public partial class TelaLobby : UserControl
     {
-        public TelaLobby()
+        private TelaPrincipal principal;
+
+        public TelaLobby(TelaPrincipal telaPrincipal)
         {
             InitializeComponent();
 
-            btnJogarFase.Click += (sender, e) => JogarFase();
+            /*btnJogarFase.Click += (sender, e) => JogarFase();
             PictureBox[] casas = ObterCasas();
             tamanhoOriginalMapa = panelMapa.ClientSize;
             posicoesOriginais = Array.ConvertAll(casas, casa => casa.Bounds);
@@ -28,6 +30,7 @@ namespace Kalculate_KoalaBoy
             }
             panelMapa.SizeChanged += (sender, e) => AjustarCaixinhas();
             panelDescricaoFase.Hide();
+            */
         }
 
         private int vidasGerais = 3;
@@ -87,7 +90,7 @@ namespace Kalculate_KoalaBoy
         {
             if (posicaoAtual == 0)
             {
-                panelDescricaoFase.Visible = false;
+                //panelDescricaoFase.Visible = false;
                 return;
             }
 
@@ -97,9 +100,9 @@ namespace Kalculate_KoalaBoy
 
                 using (Image imagem = Image.FromFile(caminho))
                 {
-                    Image anterior = panelDescricaoFase.BackgroundImage;
+                    /*Image anterior = panelDescricaoFase.BackgroundImage;
                     panelDescricaoFase.BackgroundImage = new Bitmap(imagem);
-                    anterior?.Dispose();
+                    anterior?.Dispose();*/
                 }
 
                 //panelDescricaoFase.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_" + vidasGerais + "hp.png"));
@@ -108,9 +111,9 @@ namespace Kalculate_KoalaBoy
                 faseDoMenuExibido = posicaoAtual;
             }
 
-            btnJogarFase.Enabled = vidasGerais > 0 && posicaoAtual <= ultimaFaseLiberada;
+            //btnJogarFase.Enabled = vidasGerais > 0 && posicaoAtual <= ultimaFaseLiberada;
 
-            panelDescricaoFase.Visible = true;
+            //panelDescricaoFase.Visible = true;
         }
 
         #endregion
@@ -123,9 +126,9 @@ namespace Kalculate_KoalaBoy
 
             using (Image imagem = Image.FromFile(caminho))
             {
-                Image anterior = pbKoalaVidas.Image;
+                /*Image anterior = pbKoalaVidas.Image;
                 pbKoalaVidas.Image = new Bitmap(imagem);
-                anterior?.Dispose();
+                anterior?.Dispose();*/
             }
 
             //pbKoalaVidas.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_" + vidasGerais + "hp.png"));
@@ -139,11 +142,11 @@ namespace Kalculate_KoalaBoy
         {
             return new PictureBox[]
             {
-                pbInicio,
+                /*pbInicio,
                 pbFase1,
                 pbFase2,
                 pbFase3,
-                pbFase4,
+                pbFase4,*/
             };
         }
 
@@ -167,7 +170,7 @@ namespace Kalculate_KoalaBoy
 
         private void AjustarCaixinhas()
         {
-            double escalaX = (double)panelMapa.ClientSize.Width / tamanhoOriginalMapa.Width;
+            /*double escalaX = (double)panelMapa.ClientSize.Width / tamanhoOriginalMapa.Width;
             double escalaY = (double)panelMapa.ClientSize.Height / tamanhoOriginalMapa.Height;
             PictureBox[] casas = ObterCasas();
 
@@ -181,12 +184,12 @@ namespace Kalculate_KoalaBoy
                     (int)Math.Round(original.Height * escalaY));
             }
 
-            PosicionarJogador();
+            PosicionarJogador();*/
         }
 
         private void PosicionarJogador()
         {
-            PictureBox casa = ObterCasas()[posicaoAtual];
+            /*PictureBox casa = ObterCasas()[posicaoAtual];
             pbJogador.Location = new Point(
                 casa.Left + (casa.Width - pbJogador.Width) / 2,
                 casa.Top + (casa.Height - pbJogador.Height) / 2
@@ -194,7 +197,7 @@ namespace Kalculate_KoalaBoy
 
             pbJogador.BringToFront();
             panelDescricaoFase.BringToFront();
-            AtualizarDescricaoFase();
+            AtualizarDescricaoFase();*/
         }
 
         #endregion

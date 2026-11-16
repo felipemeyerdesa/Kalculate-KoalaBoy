@@ -27,6 +27,7 @@ namespace Kalculate_KoalaBoy
         public int BatalhaAtual = 0;
         public TelaInicial telaInicial;
         public TelaHistoria telaHistoria;
+        public TelaLobby telaLobby;
         public TelaBatalhaDialogo telaDialogo;
         public TelaBatalhaPerguntas telaPerguntas;
         public TelaResultados telaResultados;
@@ -62,6 +63,30 @@ namespace Kalculate_KoalaBoy
 
             telaHistoria.Show();
             telaHistoria.BringToFront();
+        }
+        #endregion
+
+        #region Exibir TelaLobby
+        public void MostrarTelaLobby()
+        {
+            if (telaLobby == null)
+            {
+                telaLobby = new TelaLobby(this);
+                telaLobby.Dock = DockStyle.Fill;
+                panelPrincipal.Controls.Add(telaLobby);
+            }
+
+            if (telaHistoria != null)
+            {
+                telaHistoria.Hide();
+            }
+            if (telaResultados != null)
+            {
+                telaResultados.Hide();
+            }
+
+            telaLobby.Show();
+            telaLobby.BringToFront();
         }
         #endregion
 
