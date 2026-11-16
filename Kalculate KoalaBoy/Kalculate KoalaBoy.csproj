@@ -62,11 +62,11 @@
     <Compile Include="TelaBatalhaDialogo.Designer.cs">
       <DependentUpon>TelaBatalhaDialogo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mapa.cs">
+    <Compile Include="TelaHistoria.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Mapa.Designer.cs">
-      <DependentUpon>Mapa.cs</DependentUpon>
+    <Compile Include="TelaHistoria.Designer.cs">
+      <DependentUpon>TelaHistoria.cs</DependentUpon>
     </Compile>
     <Compile Include="TelaPrincipal.cs">
       <SubType>Form</SubType>
@@ -88,11 +88,26 @@
     <Compile Include="TelaBatalhaPerguntas.Designer.cs">
       <DependentUpon>TelaBatalhaPerguntas.cs</DependentUpon>
     </Compile>
+    <Compile Include="TelaResultados.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TelaResultados.Designer.cs">
+      <DependentUpon>TelaResultados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TelaLobby.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TelaLobby.Designer.cs">
+      <DependentUpon>TelaLobby.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="TelaBatalhaDialogo.resx">
       <DependentUpon>TelaBatalhaDialogo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mapa.resx">
-      <DependentUpon>Mapa.cs</DependentUpon>
+    <EmbeddedResource Include="TelaHistoria.resx">
+      <DependentUpon>TelaHistoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TelaLobby.resx">
+      <DependentUpon>TelaLobby.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TelaPrincipal.resx">
       <DependentUpon>TelaPrincipal.cs</DependentUpon>
@@ -111,6 +126,9 @@
     </Compile>
     <EmbeddedResource Include="TelaBatalhaPerguntas.resx">
       <DependentUpon>TelaBatalhaPerguntas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TelaResultados.resx">
+      <DependentUpon>TelaResultados.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
     <Content Include="Fontes\PressStart2P-Regular.ttf">

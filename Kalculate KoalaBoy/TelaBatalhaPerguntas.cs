@@ -21,49 +21,55 @@ namespace Kalculate_KoalaBoy
             principal = telaPrincipal;
             FontesJogo.AplicarFonte(this);
             ConfigurarEfeitoDano();
+            ConfigurarEfeitoFeedback();
             DefinirImagensInimigo();
         }
 
         private async void TelaBatalhaPerguntas_Load(object sender, EventArgs e)
         {
-            principal = (TelaPrincipal)this.FindForm();
             await Perguntas();
         }
 
         #region Variaveis
         private int inimigohp = 3;
-        private int koalahp = 3;
+        public int koalahp = 3;
         private Random random = new Random();
-        private int perguntaAtual = 1;
+        public int perguntaAtual = 1;
         private int respostaCorreta;
         private int A;
         private int B;
         private int C;
         private int AlternativaErrada1;
         private int AlternativaErrada2;
-        int limiteMaximo;
-        int limiteMinimo;
+        private int limiteMaximo;
+        private int limiteMinimo;
+        public int pontuacaoBatalha = 0;
+
+        public int acertos = 0;
+        private int combo = 0;
         #endregion
 
         #region Perguntas
         private async Task Perguntas()
         {
+
             if (inimigohp == 0)
             {
-                principal.telaDialogo.EncerrarBatalha(1, koalahp);
+                RegistrarVitoria();
+                await principal.telaDialogo.EncerrarBatalha(true);
                 principal.MostrarTelaBatalhaDialogo();
                 return;
             }
 
             if (koalahp == 0)
             {
-                principal.telaDialogo.EncerrarBatalha(2, koalahp);
+                await principal.telaDialogo.EncerrarBatalha(false);
                 principal.MostrarTelaBatalhaDialogo();
                 return;
             }
 
             #region ArqUrb
-            //SOMA
+            // SOMA
             if (principal.BatalhaAtual == 1)
             {
                 if (perguntaAtual == 1)
@@ -153,7 +159,7 @@ namespace Kalculate_KoalaBoy
             #endregion
 
             #region Biomed
-            //SUBTRAÇÃO
+            // SUBTRAÇÃO
             else if (principal.BatalhaAtual == 2)
             {
 
@@ -241,7 +247,7 @@ namespace Kalculate_KoalaBoy
             #endregion
 
             #region Direito
-            //MULTIPLICAÇÃO
+            // MULTIPLICAÇÃO
             else if (principal.BatalhaAtual == 3)
             {
 
@@ -331,7 +337,7 @@ namespace Kalculate_KoalaBoy
             #endregion
 
             #region Educação Física
-            //Divisão
+            // Divisão
             else if (principal.BatalhaAtual == 4)
             {
 
@@ -426,7 +432,7 @@ namespace Kalculate_KoalaBoy
             #endregion
 
             #region PubliPropag
-            //PORCENTAGEM
+            // PORCENTAGEM
             if (principal.BatalhaAtual == 5)
             {
                 if (perguntaAtual == 1)
@@ -508,7 +514,7 @@ namespace Kalculate_KoalaBoy
             #endregion
 
             #region Comex
-            //OPERAÇÕES COMBINADAS
+            // OPERAÇÕES COMBINADAS
             if (principal.BatalhaAtual == 6)
             {
                 if (perguntaAtual == 1)
@@ -601,7 +607,7 @@ namespace Kalculate_KoalaBoy
             #endregion
 
             #region Engenharia
-            //OPERAÇOES COMBINADAS
+            // OPERAÇOES COMBINADAS
             else if (principal.BatalhaAtual == 7)
             {
 
@@ -788,6 +794,26 @@ namespace Kalculate_KoalaBoy
         {
             panelCaixaPerguntas.Visible = false;
             panelAlternativas.Visible = false;
+            pbResposta.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "RespostaCorreta.gif"));
+            acertos++;
+            combo++;
+            if (combo >= 2)
+            {
+                pbPontos.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "150Pontos.gif"));
+                pbCombo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "Combo_x" + combo + ".gif"));
+                pbCombo.Visible = true;
+                pontuacaoBatalha += 150;
+            }
+            else
+            {
+                pontuacaoBatalha += 100;
+                pbPontos.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "100Pontos.gif"));
+            }
+            pbResposta.Visible = true;
+            pbPontos.Visible = true;
+            await Task.Delay(1000);
+            pbResposta.Visible = false;
+            pbPontos.Visible = false;
             await Ataque();
             perguntaAtual++;
             panelCaixaPerguntas.Visible = true;
@@ -801,6 +827,12 @@ namespace Kalculate_KoalaBoy
         {
             panelCaixaPerguntas.Visible = false;
             panelAlternativas.Visible = false;
+            pbResposta.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "RespostaIncorreta.gif"));
+            pbResposta.Visible = true;
+            await Task.Delay(1000);
+            pbResposta.Visible = false;
+            combo = 0;
+            pbCombo.Visible = false;
             await AtaqueInimigo();
             perguntaAtual++;
             panelCaixaPerguntas.Visible = true;
@@ -869,10 +901,10 @@ namespace Kalculate_KoalaBoy
 
             await Task.Delay(850);
 
-            pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemRecebendoDano));
+            pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemDefendendo));
 
             pbEfeitoDanoInimigo.Visible = true;
-            await Task.Delay(1000);
+            await Task.Delay(1200);
             pbEfeitoDanoInimigo.Visible = false;
 
             await Task.Delay(400);
@@ -915,6 +947,10 @@ namespace Kalculate_KoalaBoy
                 pbInimigo.Size = new Size(389, 396);
                 pbInimigo.Top = 164;
             }
+            else if (principal.BatalhaAtual == 6)
+            {
+                pbInimigo.Size = new Size(496, 345);
+            }
             else
             {
                 pbInimigo.Size = new Size(350, 335);
@@ -935,7 +971,14 @@ namespace Kalculate_KoalaBoy
             pbKoalaBoy.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyDefendendo.png"));
 
             pbEfeitoDanoKoala.Visible = true;
-            await Task.Delay(1000);
+            if (principal.BatalhaAtual == 2 || principal.BatalhaAtual == 5)
+            {
+                await Task.Delay(1500);
+            }
+            else
+            {
+                await Task.Delay(1200);
+            }
             pbEfeitoDanoKoala.Visible = false;
 
             await Task.Delay(400);
@@ -945,7 +988,10 @@ namespace Kalculate_KoalaBoy
             pbKoalaHp.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_" + koalahp + "hp.png"));
 
             pbInimigo.Size = new Size(255, 335);
-            pbInimigo.Top = 225;
+            if (principal.BatalhaAtual == 3)
+            {
+                pbInimigo.Top = 225;
+            }
             pbKoalaBoy.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoy" + koalahp + ".png"));
             pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemNormal + inimigohp + ".png"));
 
@@ -1232,7 +1278,9 @@ namespace Kalculate_KoalaBoy
 
         #endregion
 
-        #region Cria e configura os Efeitos de Dano
+        #region Cria e configura os Efeitos na tela
+
+        #region Efeito Dano
         private PictureBox pbEfeitoDanoInimigo;
         private PictureBox pbEfeitoDanoKoala;
         private void ConfigurarEfeitoDano()
@@ -1240,8 +1288,8 @@ namespace Kalculate_KoalaBoy
             pbEfeitoDanoKoala = new PictureBox();
 
             pbEfeitoDanoKoala.Parent = pbKoalaBoy;
-            pbEfeitoDanoKoala.Location = new Point(12,90);
             pbEfeitoDanoKoala.Size = new Size(208, 186);
+            pbEfeitoDanoKoala.Location = new Point(12, 90);
             pbEfeitoDanoKoala.BackColor = Color.Transparent;
             pbEfeitoDanoKoala.SizeMode = PictureBoxSizeMode.StretchImage;
             pbEfeitoDanoKoala.Visible = false;
@@ -1256,15 +1304,55 @@ namespace Kalculate_KoalaBoy
             pbEfeitoDanoInimigo.Visible = false;
             pbEfeitoDanoInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "EfeitoDano.gif"));
 
-            if (principal.BatalhaAtual == 1)
+            if (principal.BatalhaAtual == 1 || principal.BatalhaAtual == 4)
             {
                 pbEfeitoDanoInimigo.Location = new Point(50, 90);
             }
-            else if (principal.BatalhaAtual == 3)
+            else if (principal.BatalhaAtual == 2 || principal.BatalhaAtual == 3)
             {
                 pbEfeitoDanoInimigo.Location = new Point(10, 90);
             }
+            else if (principal.BatalhaAtual == 5)
+            {
+                pbEfeitoDanoInimigo.Location = new Point(20, 90);
+            }
+            else if (principal.BatalhaAtual == 6)
+            {
+                pbEfeitoDanoInimigo.Location = new Point(10, 80);
+            }
         }
+        #endregion
+
+        #region Efeito Feedback
+        private void ConfigurarEfeitoFeedback()
+        {
+            pbResposta = new PictureBox();
+            pbResposta.Parent = this;
+            pbResposta.Size = new Size(450, 245);
+            pbResposta.Location = new Point(396, 232);
+            pbResposta.SizeMode = PictureBoxSizeMode.Zoom;
+            pbResposta.BackColor = Color.Transparent;
+            pbResposta.Visible = false;
+
+            pbPontos = new PictureBox();
+            pbPontos.Parent = this;
+            pbPontos.Size = new Size(350, 110);
+            pbPontos.Location = new Point(439, 469);
+            pbPontos.SizeMode = PictureBoxSizeMode.Zoom;
+            pbPontos.BackColor = Color.Transparent;
+            pbPontos.Visible = false;
+
+            pbCombo = new PictureBox();
+            pbCombo.Parent = this;
+            pbCombo.Size = new Size(225, 110);
+            pbCombo.Location = new Point(0, 122);
+            pbCombo.SizeMode = PictureBoxSizeMode.Zoom;
+            pbCombo.BackColor = Color.Transparent;
+            pbCombo.Visible = false;
+            
+        }
+        #endregion
+
         #endregion
 
         #region Configura Cenario
@@ -1278,43 +1366,43 @@ namespace Kalculate_KoalaBoy
             pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemNormal + inimigohp + ".png"));
             pbInimigoHp.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemHp + inimigohp + "hp.png"));
 
-            //ArqUrb
+            // ArqUrb
             if (principal.BatalhaAtual == 1)
             {
                 pbKoalaBoy.Location = new Point(120, 252);
                 pbInimigo.Location = new Point(905, 252);
             }
-            //Biomed
+            // Biomed
             else if (principal.BatalhaAtual == 2)
             {
                 pbKoalaBoy.Location = new Point(120, 252);
                 pbInimigo.Location = new Point(905, 252);
             }
-            //Direito
+            // Direito
             else if (principal.BatalhaAtual == 3)
             {
                 pbKoalaBoy.Location = new Point(120, 225);
                 pbInimigo.Location = new Point(905, 225);
             }
-            //Educação Física
+            // Educação Física
             else if (principal.BatalhaAtual == 4)
             {
                 pbKoalaBoy.Location = new Point(120, 252);
                 pbInimigo.Location = new Point(905, 252);
             }
-            //Artes e Comunicação
+            // Artes e Comunicação
             else if (principal.BatalhaAtual == 5)
             {
-                pbKoalaBoy.Location = new Point(120, 225);
-                pbInimigo.Location = new Point(905, 225);
+                pbKoalaBoy.Location = new Point(120, 352);
+                pbInimigo.Location = new Point(905, 352);
             }
-            //Comércio Exterior
+            // Comércio Exterior
             else if (principal.BatalhaAtual == 6)
             {
-                pbKoalaBoy.Location = new Point(120, 225);
-                pbInimigo.Location = new Point(905, 225);
+                pbKoalaBoy.Location = new Point(120, 300);
+                pbInimigo.Location = new Point(905, 300);
             }
-            //Engenharia
+            // Engenharia
             else if (principal.BatalhaAtual == 7)
             {
                 pbKoalaBoy.Location = new Point(120, 225);
@@ -1328,85 +1416,86 @@ namespace Kalculate_KoalaBoy
         private string cenario;
         private string imagemAtacando;
         private string imagemAtacandoFerido;
-        private string imagemRecebendoDano;
+        private string imagemDefendendo;
         private string imagemNormal;
         private string imagemHp;
 
         private void DefinirImagensInimigo()
         {
-            //ArqUrb
+            // ArqUrb
             if (principal.BatalhaAtual == 1)
             {
                 pastaInimigo = "ArqUrb";
                 cenario = "ArqUrb.png";
                 imagemAtacando = "GatoAtacando.gif";
                 imagemAtacandoFerido = "GatoAtacandoFerido.gif";
-                imagemRecebendoDano = "GatoDefendendo.png";
+                imagemDefendendo = "GatoDefendendo.png";
                 imagemNormal = "Gato";
                 imagemHp = "gato_";
             }
-            //Biomed
+            // Biomed
             else if (principal.BatalhaAtual == 2)
             {
                 pastaInimigo = "Biomed";
                 cenario = "Biomed.png";
                 imagemAtacando = "LoboAtacando.gif";
                 imagemAtacandoFerido = "LoboAtacandoFerido.gif";
-                imagemRecebendoDano = "loboDefendendo.png";
+                imagemDefendendo = "loboDefendendo.png";
                 imagemNormal = "Lobo";
                 imagemHp = "lobo_";
             }
-            //Direito
+            // Direito
             else if (principal.BatalhaAtual == 3)
             {
                 pastaInimigo = "Direito";
                 cenario = "Direito.png";
                 imagemAtacando = "RaposaAtacando.gif";
                 imagemAtacandoFerido = "RaposaAtacandoFerida.gif";
-                imagemRecebendoDano = "RaposaDefendendo.png";
+                imagemDefendendo = "RaposaDefendendo.png";
                 imagemNormal = "Raposa";
                 imagemHp = "raposa_";
             }
-            //Fefesp
+            // Fefesp
             else if (principal.BatalhaAtual == 4)
             {
                 pastaInimigo = "Fefesp";
                 cenario = "Fefesp.png";
                 imagemAtacando = "TutubaAtacando.gif";
                 imagemAtacandoFerido = "TutubaAtacandoFerido.gif";
-                imagemRecebendoDano = "TutubaDefendendo.png";
+                imagemDefendendo = "TutubaDefendendo.png";
                 imagemNormal = "Tutuba";
                 imagemHp = "tutuba_";
             }
-            //PubliPropag
+            // PubliPropag
             else if (principal.BatalhaAtual == 5)
             {
-                pastaInimigo = "";
-                cenario = ".png";
-                imagemAtacando = ".gif";
-                imagemAtacandoFerido = ".gif";
-                imagemRecebendoDano = ".png";
-                imagemNormal = "";
-                imagemHp = "";
+                pastaInimigo = "PubliPropag";
+                cenario = "PubliPropag.png";
+                imagemAtacando = "MacacaAtacando.gif";
+                imagemAtacandoFerido = "MacacaAtacandoFerida.gif";
+                imagemDefendendo = "MacacaDefendendo.png";
+                imagemNormal = "Macaca";
+                imagemHp = "macaca_";
             }
-            //Comex
+            // Comex
             else if (principal.BatalhaAtual == 6)
             {
-                pastaInimigo = "";
-                cenario = ".png";
-                imagemAtacando = ".gif";
-                imagemAtacandoFerido = ".gif";
-                imagemRecebendoDano = ".png";
-                imagemNormal = "";
-                imagemHp = "";
+                pastaInimigo = "Comex";
+                cenario = "Comex.png";
+                imagemAtacando = "PanteraAtacando.gif";
+                imagemAtacandoFerido = "PanteraAtacandoFerida.gif";
+                imagemDefendendo = "PanteraDefendendo.png";
+                imagemNormal = "Pantera";
+                imagemHp = "pantera_";
             }
-            //Engenharia
+            // Engenharia
             else if (principal.BatalhaAtual == 7)
             {
                 pastaInimigo = "";
+                cenario = ".png";
                 imagemAtacando = ".gif";
                 imagemAtacandoFerido = ".gif";
-                imagemRecebendoDano = ".png";
+                imagemDefendendo = ".png";
                 imagemNormal = "";
                 imagemHp = "";
             }
@@ -1417,6 +1506,27 @@ namespace Kalculate_KoalaBoy
         private async void Alternativa_Click(object sender, EventArgs e)
         {
             await verificarResposta(sender);
+        }
+        #endregion
+
+        #region Pontuação
+        private bool pontosJaRegistrados = false;
+
+        public void RegistrarVitoria()
+        {
+            if (pontosJaRegistrados == false)
+            {
+                principal.pontuacaoTotal += pontuacaoBatalha;
+
+                pontosJaRegistrados = true;
+            }
+        }
+        
+        public void ReiniciarPontuacao()
+        {
+            pontuacaoBatalha = 0;
+            combo = 0;
+            pontosJaRegistrados = false;
         }
         #endregion
     }
