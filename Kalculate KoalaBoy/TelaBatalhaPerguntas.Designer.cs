@@ -46,6 +46,7 @@
             this.timerBotaoAlternativas = new System.Windows.Forms.Timer(this.components);
             this.timerAtaque = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblTamanho = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbKoalaHp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbInimigoHp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbKoalaBoy)).BeginInit();
@@ -255,7 +256,7 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(340, 164);
+            this.pictureBox1.Location = new System.Drawing.Point(344, 164);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(389, 396);
@@ -264,12 +265,22 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
             // 
+            // lblTamanho
+            // 
+            this.lblTamanho.AutoSize = true;
+            this.lblTamanho.Location = new System.Drawing.Point(36, 151);
+            this.lblTamanho.Name = "lblTamanho";
+            this.lblTamanho.Size = new System.Drawing.Size(35, 13);
+            this.lblTamanho.TabIndex = 14;
+            this.lblTamanho.Text = "label1";
+            // 
             // TelaBatalhaPerguntas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.lblTamanho);
             this.Controls.Add(this.pbKoalaHp);
             this.Controls.Add(this.pbInimigoHp);
             this.Controls.Add(this.panelCaixaPerguntas);
@@ -292,6 +303,7 @@
             this.panelCaixaPerguntas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -313,5 +325,9 @@
         private System.Windows.Forms.Timer timerBotaoAlternativas;
         private System.Windows.Forms.Timer timerAtaque;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbResposta;
+        private System.Windows.Forms.PictureBox pbPontos;
+        private System.Windows.Forms.PictureBox pbCombo;
+        private System.Windows.Forms.Label lblTamanho;
     }
 }

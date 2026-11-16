@@ -90,7 +90,7 @@
             // pbPersonagem
             // 
             this.pbPersonagem.Image = ((System.Drawing.Image)(resources.GetObject("pbPersonagem.Image")));
-            this.pbPersonagem.Location = new System.Drawing.Point(266, 30);
+            this.pbPersonagem.Location = new System.Drawing.Point(273, 30);
             this.pbPersonagem.Name = "pbPersonagem";
             this.pbPersonagem.Size = new System.Drawing.Size(441, 345);
             this.pbPersonagem.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
