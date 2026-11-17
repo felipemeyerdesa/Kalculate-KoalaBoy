@@ -92,6 +92,10 @@ namespace Kalculate_KoalaBoy
             pbBotaoFecharLenda.SizeMode = PictureBoxSizeMode.Zoom;
             pbBotaoFecharLenda.Cursor = Cursors.Hand;
             pbBotaoFecharLenda.Click += pbBotaoFecharLenda_Click;
+            pbBotaoFecharLenda.MouseEnter += pbBotaoFecharLenda_MouseEnter;
+            pbBotaoFecharLenda.MouseLeave += pbBotaoFecharLenda_MouseLeave;
+            pbBotaoFecharLenda.MouseDown += pbBotaoFecharLenda_MouseDown;
+            pbBotaoFecharLenda.MouseUp += pbBotaoFecharLenda_MouseUp;
             pbBotaoFecharLenda.Visible = false;
             pbBotaoFecharLenda.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", "BotãoFechar.png"));
         }
@@ -105,6 +109,96 @@ namespace Kalculate_KoalaBoy
         }
         #endregion
 
+        #region AnimaçãoBotãoFecharLenda
+
+        private int larguraAlvoFecharLenda = 50;
+        private int alturaAlvoFecharLenda = 45;
+        private bool mouseEmCimaFecharLenda = false;
+
+        // MOUSE ENTER
+        private void pbBotaoFecharLenda_MouseEnter(object sender, EventArgs e)
+        {
+            mouseEmCimaFecharLenda = true;
+
+            larguraAlvoFecharLenda = 56;
+            alturaAlvoFecharLenda = 51;
+
+            timerBotaoFechar.Start();
+        }
+
+        // MOUSE LEAVE
+        private void pbBotaoFecharLenda_MouseLeave(object sender, EventArgs e)
+        {
+            mouseEmCimaFecharLenda = false;
+
+            larguraAlvoFecharLenda = 50;
+            alturaAlvoFecharLenda = 45;
+
+            timerBotaoFechar.Start();
+        }
+
+        // MOUSE DOWN
+        private void pbBotaoFecharLenda_MouseDown(object sender, MouseEventArgs e)
+        {
+            larguraAlvoFecharLenda = 46;
+            alturaAlvoFecharLenda = 41;
+
+            timerBotaoFechar.Start();
+        }
+
+        // MOUSE UP
+        private void pbBotaoFecharLenda_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (mouseEmCimaFecharLenda)
+            {
+                larguraAlvoFecharLenda = 56;
+                alturaAlvoFecharLenda = 51;
+            }
+            else
+            {
+                larguraAlvoFecharLenda = 50;
+                alturaAlvoFecharLenda = 45;
+            }
+
+            timerBotaoFechar.Start();
+        }
+
+        // TIMER
+        private void timerBotaoFechar_Tick(object sender, EventArgs e)
+        {
+            // LARGURA
+            if (pbBotaoFecharLenda.Width < larguraAlvoFecharLenda)
+            {
+                pbBotaoFecharLenda.Width += 2;
+                pbBotaoFecharLenda.Left -= 1;
+            }
+            else if (pbBotaoFecharLenda.Width > larguraAlvoFecharLenda)
+            {
+                pbBotaoFecharLenda.Width -= 2;
+                pbBotaoFecharLenda.Left += 1;
+            }
+
+            // ALTURA
+            if (pbBotaoFecharLenda.Height < alturaAlvoFecharLenda)
+            {
+                pbBotaoFecharLenda.Height += 2;
+                pbBotaoFecharLenda.Top -= 1;
+            }
+            else if (pbBotaoFecharLenda.Height > alturaAlvoFecharLenda)
+            {
+                pbBotaoFecharLenda.Height -= 2;
+                pbBotaoFecharLenda.Top += 1;
+            }
+
+            if (pbBotaoFecharLenda.Width == larguraAlvoFecharLenda &&
+                pbBotaoFecharLenda.Height == alturaAlvoFecharLenda)
+            {
+                timerBotaoFechar.Stop();
+            }
+        }
+
+        #endregion
+
         private async void TelaHistoria_VisibleChanged(object sender, EventArgs e)
         {
             if (this.Visible && mostrarLendaFragmento == true)
@@ -115,5 +209,7 @@ namespace Kalculate_KoalaBoy
                 pbBotaoFecharLenda.Visible = true;
             }
         }
+
+       
     }
 }
