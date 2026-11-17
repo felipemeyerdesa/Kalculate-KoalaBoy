@@ -886,7 +886,11 @@ namespace Kalculate_KoalaBoy
             {
                 principal.MostrarTelaHistoria();
             }
-            if (batalhaEncerrada == false && principal.BatalhaAtual > 0 && dialogoAtual > 4)
+            else if (principal.BatalhaAtual == 0 && dialogoAtual > 30)
+            {
+                principal.MostrarTelaLobby();
+            }
+            else if (batalhaEncerrada == false && principal.BatalhaAtual > 0 && dialogoAtual > 4)
             {
                 await IniciarBatalha();
                 return;
