@@ -89,11 +89,11 @@ namespace Kalculate_KoalaBoy
             pbBotaoFecharLenda.Size = new Size(50, 45);
             pbBotaoFecharLenda.Location = new Point(655, 35);
             pbBotaoFecharLenda.BackColor = Color.Transparent;
-            pbBotaoFecharLenda.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbBotaoFecharLenda.SizeMode = PictureBoxSizeMode.Zoom;
             pbBotaoFecharLenda.Cursor = Cursors.Hand;
             pbBotaoFecharLenda.Click += pbBotaoFecharLenda_Click;
             pbBotaoFecharLenda.Visible = false;
-            pbBotaoFecharLenda.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", "LendaFragmento.png"));
+            pbBotaoFecharLenda.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", "BotãoFechar.png"));
         }
         #endregion
 
