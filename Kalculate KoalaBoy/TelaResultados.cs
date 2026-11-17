@@ -232,6 +232,12 @@ namespace Kalculate_KoalaBoy
         }
         #endregion
 
+        #region Botão Voltar Lobby
+        private void pbBotaoLobby_Click(object sender, EventArgs e)
+        {
+            principal.MostrarTelaLobby();
+        }
+        
         #region AnimaçãoBotãoLobby
 
         private int larguraAlvoLobby = 234;
@@ -319,6 +325,8 @@ namespace Kalculate_KoalaBoy
                 timerBotaoLobby.Stop();
             }
         }
+
+        #endregion
 
         #endregion
 

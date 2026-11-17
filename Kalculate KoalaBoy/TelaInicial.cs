@@ -13,18 +13,18 @@ namespace Kalculate_KoalaBoy
 {
     public partial class TelaInicial : UserControl
     {
-        public TelaInicial()
+        private TelaPrincipal principal;
+
+        public TelaInicial(TelaPrincipal telaPrincipal)
         {
             InitializeComponent();
-
+            principal = telaPrincipal;
         }
 
         #region Botão Start
         private void pbStart_Click(object sender, EventArgs e)
         {
-            TelaPrincipal principal = (TelaPrincipal)this.FindForm();
-
-            principal.MostrarTelaBatalhaDialogo();
+            principal.MostrarTelaHistoria();
         }
         #endregion
 

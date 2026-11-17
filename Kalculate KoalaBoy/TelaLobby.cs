@@ -33,7 +33,7 @@ namespace Kalculate_KoalaBoy
             */
         }
 
-        private int vidasGerais = 3;
+        /*private int vidasGerais = 3;
         private int posicaoAtual;
         private int ultimaFaseLiberada = 1;
         private readonly int[] estrelasPorFase = new int[8];
@@ -76,14 +76,6 @@ namespace Kalculate_KoalaBoy
 
         #region Painel de descrição da fase
 
-        private static readonly string[] imagensDosMenus =
-        {
-            "MenuGato.png",
-            "MenuLobo.png",
-            "MenuRaposa.png",
-            "MenuTubarão.png"
-        };
-
         private int faseDoMenuExibido;
 
         private void AtualizarDescricaoFase()
@@ -96,24 +88,15 @@ namespace Kalculate_KoalaBoy
 
             if (faseDoMenuExibido != posicaoAtual)
             {
-                string caminho = Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaLobby", imagensDosMenus[posicaoAtual - 1]);
 
-                using (Image imagem = Image.FromFile(caminho))
-                {
-                    /*Image anterior = panelDescricaoFase.BackgroundImage;
-                    panelDescricaoFase.BackgroundImage = new Bitmap(imagem);
-                    anterior?.Dispose();*/
-                }
-
-                //panelDescricaoFase.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_" + vidasGerais + "hp.png"));
-
+                panelDescricaoFase.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_" + vidasGerais + "hp.png"));
 
                 faseDoMenuExibido = posicaoAtual;
             }
 
-            //btnJogarFase.Enabled = vidasGerais > 0 && posicaoAtual <= ultimaFaseLiberada;
+            btnJogarFase.Enabled = vidasGerais > 0 && posicaoAtual <= ultimaFaseLiberada;
 
-            //panelDescricaoFase.Visible = true;
+            panelDescricaoFase.Visible = true;
         }
 
         #endregion
@@ -122,16 +105,7 @@ namespace Kalculate_KoalaBoy
 
         private void AtualizarVidasGerais()
         {
-            string caminho = Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_" + vidasGerais + "hp.png");
-
-            using (Image imagem = Image.FromFile(caminho))
-            {
-                /*Image anterior = pbKoalaVidas.Image;
-                pbKoalaVidas.Image = new Bitmap(imagem);
-                anterior?.Dispose();*/
-            }
-
-            //pbKoalaVidas.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_" + vidasGerais + "hp.png"));
+        pbKoalaVidas.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_" + vidasGerais + "hp.png"));
         }
 
         #endregion
@@ -142,11 +116,11 @@ namespace Kalculate_KoalaBoy
         {
             return new PictureBox[]
             {
-                /*pbInicio,
+                pbInicio,
                 pbFase1,
                 pbFase2,
                 pbFase3,
-                pbFase4,*/
+                pbFase4,
             };
         }
 
@@ -170,7 +144,7 @@ namespace Kalculate_KoalaBoy
 
         private void AjustarCaixinhas()
         {
-            /*double escalaX = (double)panelMapa.ClientSize.Width / tamanhoOriginalMapa.Width;
+            double escalaX = (double)panelMapa.ClientSize.Width / tamanhoOriginalMapa.Width;
             double escalaY = (double)panelMapa.ClientSize.Height / tamanhoOriginalMapa.Height;
             PictureBox[] casas = ObterCasas();
 
@@ -184,12 +158,12 @@ namespace Kalculate_KoalaBoy
                     (int)Math.Round(original.Height * escalaY));
             }
 
-            PosicionarJogador();*/
+            PosicionarJogador();
         }
 
         private void PosicionarJogador()
         {
-            /*PictureBox casa = ObterCasas()[posicaoAtual];
+            PictureBox casa = ObterCasas()[posicaoAtual];
             pbJogador.Location = new Point(
                 casa.Left + (casa.Width - pbJogador.Width) / 2,
                 casa.Top + (casa.Height - pbJogador.Height) / 2
@@ -197,7 +171,7 @@ namespace Kalculate_KoalaBoy
 
             pbJogador.BringToFront();
             panelDescricaoFase.BringToFront();
-            AtualizarDescricaoFase();*/
+            AtualizarDescricaoFase();
         }
 
         #endregion
@@ -235,5 +209,6 @@ namespace Kalculate_KoalaBoy
         }
 
         #endregion
+        */
     }
 }
