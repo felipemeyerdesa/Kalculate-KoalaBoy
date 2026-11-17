@@ -22,7 +22,7 @@ namespace Kalculate_KoalaBoy
         }
 
         #region Variaveis
-        public int BatalhaAtual = 1;
+        public int BatalhaAtual = 0;
         public TelaInicial telaInicial;
         public TelaTutorial telaTutorial;
         public TelaHistoria telaHistoria;
