@@ -18,14 +18,13 @@ namespace Kalculate_KoalaBoy
             InitializeComponent();
 
             AtivarDoubleBuffered(this);
-            //MostrarTelaInicial();
-            MostrarTelaHistoria();
-            
+            MostrarTelaInicial();
         }
 
         #region Variaveis
-        public int BatalhaAtual = 0;
+        public int BatalhaAtual = 1;
         public TelaInicial telaInicial;
+        public TelaTutorial telaTutorial;
         public TelaHistoria telaHistoria;
         public TelaLobby telaLobby;
         public TelaBatalhaDialogo telaDialogo;
@@ -39,10 +38,22 @@ namespace Kalculate_KoalaBoy
         {
             panelPrincipal.Controls.Clear();
 
-            telaInicial = new TelaInicial();
+            telaInicial = new TelaInicial(this);
             telaInicial.Dock = DockStyle.Fill;
 
             panelPrincipal.Controls.Add(telaInicial);
+        }
+        #endregion
+
+        #region Exibir TelaTutorial
+        public void MostrarTelaTutorial()
+        {
+            panelPrincipal.Controls.Clear();
+
+            telaTutorial = new TelaTutorial(this);
+            telaTutorial.Dock = DockStyle.Fill;
+
+            panelPrincipal.Controls.Add(telaTutorial);
         }
         #endregion
 
@@ -53,6 +64,7 @@ namespace Kalculate_KoalaBoy
             {
                 telaHistoria = new TelaHistoria(this);
                 telaHistoria.Dock = DockStyle.Fill;
+
                 panelPrincipal.Controls.Add(telaHistoria);
             }
 
@@ -73,6 +85,7 @@ namespace Kalculate_KoalaBoy
             {
                 telaLobby = new TelaLobby(this);
                 telaLobby.Dock = DockStyle.Fill;
+
                 panelPrincipal.Controls.Add(telaLobby);
             }
 
@@ -97,6 +110,7 @@ namespace Kalculate_KoalaBoy
             { 
                 telaDialogo = new TelaBatalhaDialogo(this);
                 telaDialogo.Dock = DockStyle.Fill;
+
                 panelPrincipal.Controls.Add(telaDialogo);
             }
 
@@ -122,6 +136,7 @@ namespace Kalculate_KoalaBoy
             {
                 telaPerguntas = new TelaBatalhaPerguntas(this);
                 telaPerguntas.Dock = DockStyle.Fill;
+
                 panelPrincipal.Controls.Add(telaPerguntas);
             }
 
@@ -144,6 +159,7 @@ namespace Kalculate_KoalaBoy
             {
                 telaResultados = new TelaResultados(this);
                 telaResultados.Dock = DockStyle.Fill;
+
                 panelPrincipal.Controls.Add(telaResultados);
             }
 

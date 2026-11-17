@@ -248,7 +248,7 @@ namespace Kalculate_KoalaBoy
                 }
                 else if (dialogoAtual == 4)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxUrubu.png"));
                     lblDialogo.Text = "Fique esperto, KoalaBoy! Esse adversário utiliza a SOMA em suas batalhas. Não deixe os problemas se acumularem!";
                 }
@@ -292,7 +292,7 @@ namespace Kalculate_KoalaBoy
                 }
                 else if (dialogoAtual == 2)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Não sou sua cobaia coisa nenhuma! Passa logo esse fragmento ESPECIAL pra cá";
                 }
@@ -304,14 +304,14 @@ namespace Kalculate_KoalaBoy
                 }
                 else if (dialogoAtual == 4)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxUrubu.png"));
                     lblDialogo.Text = "Atenção, KoalaBoy! Esse lobo domina a SUBTRAÇÃO. Cuidado para não sair com menos hemácias do que entrou!";
                 }
                 // KoalaBoy Venceu
                 else if (dialogoAtual == 5)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Seu diagnóstico estava errado, doutor pulguento! Quem precisava de tratamento era você!";
                 }
@@ -342,7 +342,7 @@ namespace Kalculate_KoalaBoy
             {
                 if (dialogoAtual == 1)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Nem o DIABO vai te defender hoje! Vim confiscar seu fragmento ESPECIAL";
                 }
@@ -354,20 +354,20 @@ namespace Kalculate_KoalaBoy
                 }
                 else if (dialogoAtual == 3)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Então chega de conversa! Te vejo no tribunal";
                 }
                 else if (dialogoAtual == 4)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxUrubu.png"));
                     lblDialogo.Text = "Cuidado, KoalaBoy! Essa raposa usa a MULTIPLICAÇÃO em suas batalhas. Um pequeno erro pode multiplicar seus problemas!";
                 }
                 // KoalaBoy Venceu
                 else if (dialogoAtual == 5)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Parece que sua defesa não foi tão boa assim, seu engravatado de araque. Passa o fragmento!";
                 }
@@ -411,20 +411,20 @@ namespace Kalculate_KoalaBoy
                 }
                 else if (dialogoAtual == 3)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Chega de falar besteira, seu atum anabolizado. Vim pescar seu fragmento ESPECIAL!";
                 }
                 else if (dialogoAtual == 4)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxUrubu.png"));
                     lblDialogo.Text = "Fique esperto, KoalaBoy! Esse brutamontes utiliza a DIVISÃO em suas batalhas. Não deixe ele dividir suas chances de vitória!";
                 }
                 // KoalaBoy Venceu
                 else if (dialogoAtual == 5)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Parece que esses músculos são só de enfeite! Passa o fragmento, seu saco de whey";
                 }
@@ -455,13 +455,13 @@ namespace Kalculate_KoalaBoy
             {
                 if (dialogoAtual == 1)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Tenho que admitir, seus quadros são incríveis! Até que você tem um bom gosto";
                 }
                 else if (dialogoAtual == 2)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Mas não vim aqui pra admirar arte. Vim levar seu fragmento ESPECIAL, Macaca!";
                 }
@@ -473,7 +473,7 @@ namespace Kalculate_KoalaBoy
                 }
                 else if (dialogoAtual == 4)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxUrubu.png"));
                     lblDialogo.Text = "Não se distraia com macaquices, KoalaBoy! Esse gorila domina a PORCENTAGEM. Não deixe ele elevar sua derrota a 100%!";
                 }
@@ -517,7 +517,7 @@ namespace Kalculate_KoalaBoy
                 }
                 else if (dialogoAtual == 2)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Baixa essa bola, filhinho de papai! Vim levar seu fragmento ESPECIAL, não pedir visto!";
                 }
@@ -529,14 +529,14 @@ namespace Kalculate_KoalaBoy
                 }
                 else if (dialogoAtual == 4)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxUrubu.png"));
                     lblDialogo.Text = "Fique esperto com as equações dele, KoalaBoy! Ele domina a arte dos OPERADORES COMBINADOS. Não perca a viagem!";
                 }
                 // KoalaBoy Venceu
                 else if (dialogoAtual == 5)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Parece que sua primeira classe não te salvou! Me entregue agora o seu fragmento";
                 }
@@ -567,13 +567,13 @@ namespace Kalculate_KoalaBoy
             {
                 if (dialogoAtual == 1)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Vim aqui para capturar o seu fragmento ESPECIAL, seu Bafo de Leite!";
                 }
                 else if (dialogoAtual == 2)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Vamos batalhar aqui e agora!";
                 }
@@ -585,14 +585,14 @@ namespace Kalculate_KoalaBoy
                 }
                 else if (dialogoAtual == 4)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxUrubu.png"));
                     lblDialogo.Text = "Fique esperto com o operador matemático dele, KoalaBoy. Ele utiliza a SOMA em suas batalhas";
                 }
                 // KoalaBoy Venceu
                 else if (dialogoAtual == 5)
                 {
-                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando.png"));
+                    pbPersonagem.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyFalando1.png"));
                     panelBoxDialogo.BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaBatalha", "BoxKoalaBoy.png"));
                     lblDialogo.Text = "Eu venci, seu fragmento agora é meu. Volte para o lixão de onde você veio";
                 }

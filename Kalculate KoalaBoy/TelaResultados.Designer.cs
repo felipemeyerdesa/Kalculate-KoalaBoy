@@ -138,6 +138,7 @@
             this.pbBotaoLobby.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbBotaoLobby.TabIndex = 12;
             this.pbBotaoLobby.TabStop = false;
+            this.pbBotaoLobby.Click += new System.EventHandler(this.pbBotaoLobby_Click);
             this.pbBotaoLobby.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbBotaoLobby_MouseDown);
             this.pbBotaoLobby.MouseEnter += new System.EventHandler(this.pbBotaoLobby_MouseEnter);
             this.pbBotaoLobby.MouseLeave += new System.EventHandler(this.pbBotaoLobby_MouseLeave);
