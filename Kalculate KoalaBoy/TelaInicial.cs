@@ -25,9 +25,7 @@ namespace Kalculate_KoalaBoy
         #region Botão Start
         private void pbStart_Click(object sender, EventArgs e)
         {
-            //principal.MostrarTelaHistoria();
-            principal.MostrarTelaBatalhaDialogo();
-            principal.telaDialogo.MostrarBotaoSkipHistoria();
+            principal.MostrarTelaHistoria();
         }
         #endregion
 

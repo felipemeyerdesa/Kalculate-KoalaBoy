@@ -27,6 +27,10 @@ namespace Kalculate_KoalaBoy
         private async void TelaBatalha_Load(object sender, EventArgs e)
         {
             await Task.Delay(2100);
+            if (this.Visible == false || pb321Battle.Visible == true)
+            {
+                return;
+            }
             pbKoalaBoy.Visible = false;
             pbInimigo.Visible = false;
             Dialogo();
@@ -1162,7 +1166,7 @@ namespace Kalculate_KoalaBoy
                 principal.MostrarTelaLobby();
                 return;
             }
-            else if (batalhaEncerrada == false && principal.BatalhaAtual != 7 && dialogoAtual > 4)
+            else if (batalhaEncerrada == false && principal.BatalhaAtual >= 1 && principal.BatalhaAtual <= 6 && dialogoAtual > 4)
             {
                 await IniciarBatalha();
                 return;

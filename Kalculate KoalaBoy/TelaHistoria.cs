@@ -26,9 +26,16 @@ namespace Kalculate_KoalaBoy
 
         private async void TelaHistoria_Load(object sender, EventArgs e)
         {
-            //pbUrubu.Size = new Size(220, 386);
-            //await Task.Delay(2000);
-            //timerAnimacao.Start();
+            if (principal.BatalhaAtual != 0)
+            {
+                return;
+            }
+
+            pbUrubu.Size = new Size(220, 386);
+
+            await Task.Delay(2000);
+            timerAnimacao.Start();
+            
         }
 
         #region Animação Urubu e KoalaBoy
@@ -253,7 +260,7 @@ namespace Kalculate_KoalaBoy
 
         #region Configurar Cena Final
         private PictureBox pbCenario;
-        private Label lblPontuacaoGeral;
+        private PictureBox pbPontuacaoGeral;
         private PictureBox pbClassificacao;
 
         private void ConfigurarCenaFinal()
@@ -264,26 +271,23 @@ namespace Kalculate_KoalaBoy
             pbCenario.SizeMode = PictureBoxSizeMode.StretchImage;
             pbCenario.Visible = false;
 
-            lblPontuacaoGeral = new Label();
-            lblPontuacaoGeral.Parent = pbCenario;
-            lblPontuacaoGeral.Location = new Point(580, 410);
-            lblPontuacaoGeral.Size = new Size(245, 75);
-            lblPontuacaoGeral.BackColor = Color.Transparent;
-            lblPontuacaoGeral.ForeColor = Color.White;
-            lblPontuacaoGeral.Font = new Font("PressStart2P", 32, FontStyle.Regular);
-            lblPontuacaoGeral.TextAlign = ContentAlignment.MiddleCenter;
-            lblPontuacaoGeral.AutoSize = false;
-            lblPontuacaoGeral.Visible = false;
+            pbPontuacaoGeral = new PictureBox();
+            pbPontuacaoGeral.Parent = pbCenario;
+            pbPontuacaoGeral.Location = new Point(625, 410);
+            pbPontuacaoGeral.Size = new Size(245, 75);
+            pbPontuacaoGeral.SizeMode = PictureBoxSizeMode.Zoom;
+            pbPontuacaoGeral.BackColor = Color.Transparent;
+            pbPontuacaoGeral.Visible = false;
 
             pbClassificacao = new PictureBox();
             pbClassificacao.Parent = pbCenario;
-            pbClassificacao.Location = new Point(875, 365);
+            pbClassificacao.Location = new Point(910, 375);
             pbClassificacao.Size = new Size(150, 150);
             pbClassificacao.SizeMode = PictureBoxSizeMode.Zoom;
             pbClassificacao.BackColor = Color.Transparent;
             pbClassificacao.Visible = false;
 
-            lblPontuacaoGeral.BringToFront();
+            pbPontuacaoGeral.BringToFront();
             pbClassificacao.BringToFront();
         }
         #endregion
@@ -291,7 +295,7 @@ namespace Kalculate_KoalaBoy
         #region Mostrar Cena Final
         public async Task MostrarCenaFinal(int pontuacaoTotal)
         {
-            lblPontuacaoGeral.Text = pontuacaoTotal.ToString();
+            pbPontuacaoGeral.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", 3250 + ".png"));
 
             string rank;
 
@@ -333,7 +337,7 @@ namespace Kalculate_KoalaBoy
 
             pbCenario.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", "Praia.gif"));
 
-            lblPontuacaoGeral.Visible = true;
+            pbPontuacaoGeral.Visible = true;
             pbClassificacao.Visible = true;
 
         }
