@@ -147,6 +147,7 @@ namespace Kalculate_KoalaBoy
                 tutorial.Top =
                     (principal.ClientSize.Height - 710) ;
 
+                tutorial.MostrarTutorial();
                 tutorial.Show();
                 tutorial.BringToFront();
             }

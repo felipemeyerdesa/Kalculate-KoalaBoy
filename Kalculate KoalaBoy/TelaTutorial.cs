@@ -19,6 +19,10 @@ namespace Kalculate_KoalaBoy
             InitializeComponent();
             principal = telaPrincipal;
             FontesJogo.AplicarFonte(this);
+
+            ConfigurarAnimacaoSeta(pbIrPontuacao);
+            ConfigurarAnimacaoSeta(pbVoltarTutorial);
+            ConfigurarAnimacaoSeta(pbFechar);
         }
         private int tamanhoAlvoFechar = 40;
         private bool mouseEmCimaFechar = false;
@@ -104,6 +108,121 @@ namespace Kalculate_KoalaBoy
 
             this.Hide();
 
+        }
+
+        public void MostrarTutorial()
+        {
+            pbConteudo.Image = Properties.Resources.Tutorial;
+
+
+            pbIrPontuacao.Visible = true;
+            pbVoltarTutorial.Visible = false;
+            pbIrPontuacao.Show();
+            pbVoltarTutorial.Hide();
+        }
+
+        private void pbIrPontuacao_Click(object sender, EventArgs e)
+        {
+            pbConteudo.Image = Properties.Resources.Pontuacao;
+
+            pbIrPontuacao.Hide();
+            pbVoltarTutorial.Show();
+        }
+
+        private void pbVoltarTutorial_Click(object sender, EventArgs e)
+        {
+            MostrarTutorial();
+        }
+
+        private void ConfigurarAnimacaoSeta(PictureBox seta)
+        {
+            const int escalaNormal = 84;
+            const int escalaDestaque = 100;
+            const int escalaPressionada = 68;
+
+            int escalaAtual = escalaNormal;
+            int escalaAlvo = escalaNormal;
+            var timer = new System.Windows.Forms.Timer { Interval = 15 };
+
+            void AtualizarImagem()
+            {
+                var imagem = seta.Image;
+                int largura = seta.ClientSize.Width;
+                int altura = seta.ClientSize.Height;
+
+                if (imagem == null || largura == 0 || altura == 0)
+                    return;
+
+                // Redimensiona mantendo a proporção do PNG.
+                double fator = Math.Min((double)largura / imagem.Width,
+                                        (double)altura / imagem.Height) * escalaAtual / 100.0;
+
+                int sobraX = largura - Math.Max(1, (int)Math.Round(imagem.Width * fator));
+                int sobraY = altura - Math.Max(1, (int)Math.Round(imagem.Height * fator));
+
+                // Divide o espaço que sobrou para centralizar a imagem.
+                seta.Padding = new Padding(
+                    sobraX / 2, sobraY / 2,
+                    (sobraX + 1) / 2, (sobraY + 1) / 2);
+
+                seta.Invalidate();
+            }
+
+            void AnimarPara(int alvo)
+            {
+                if (!seta.Visible)
+                    return;
+
+                escalaAlvo = alvo;
+                timer.Start();
+            }
+
+            seta.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            timer.Tick += (s, e) =>
+            {
+                int diferenca = escalaAlvo - escalaAtual;
+                escalaAtual += Math.Sign(diferenca) * Math.Min(4, Math.Abs(diferenca));
+
+                AtualizarImagem();
+
+                if (escalaAtual == escalaAlvo)
+                    timer.Stop();
+            };
+
+            seta.MouseEnter += (s, e) => AnimarPara(escalaDestaque);
+            seta.MouseLeave += (s, e) => AnimarPara(escalaNormal);
+
+            seta.MouseDown += (s, e) =>
+            {
+                if (e.Button == MouseButtons.Left)
+                    AnimarPara(escalaPressionada);
+            };
+
+            seta.MouseUp += (s, e) =>
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    bool mouseEmCima = seta.ClientRectangle.Contains(e.Location);
+                    AnimarPara(mouseEmCima ? escalaDestaque : escalaNormal);
+                }
+            };
+
+            seta.VisibleChanged += (s, e) =>
+            {
+                if (!seta.Visible)
+                {
+                    timer.Stop();
+                    escalaAtual = escalaNormal;
+                    escalaAlvo = escalaNormal;
+                    AtualizarImagem();
+                }
+            };
+
+            seta.SizeChanged += (s, e) => AtualizarImagem();
+            seta.Disposed += (s, e) => timer.Dispose();
+
+            AtualizarImagem();
         }
     }
 }
