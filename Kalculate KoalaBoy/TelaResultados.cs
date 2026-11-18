@@ -146,7 +146,11 @@ namespace Kalculate_KoalaBoy
                 pbInimigoResultado.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, inimigo + "1.png"));
                 pbFragmento.Size = new Size(155, 76);
                 pbFragmento.Location = new Point(492, 260);
-                pbBotaoLobby.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaResultados", "BotãoVerFinal.png"));
+                // Só mostra "Ver final" se o Urubu foi derrotado.
+                if (principal.telaDialogo.koalaVenceu == true)
+                {
+                    pbBotaoLobby.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaResultados", "BotãoVerFinal.png"));
+                }
             }
 
             pbLogo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaInicial", "KoalaLogo.gif"));
@@ -258,20 +262,44 @@ namespace Kalculate_KoalaBoy
         #endregion
 
         #region Botão Voltar
+        // Evita descontar duas vidas se o jogador clicar duas vezes no resultado.
+        private bool resultadoRegistrado = false;
+
         private async void pbBotaoLobby_Click(object sender, EventArgs e)
         {
+            if (resultadoRegistrado == true)
+            {
+                return;
+            }
+            resultadoRegistrado = true;
+
+            // Guarda a vitória antes de limpar as variáveis do diálogo.
+            bool venceu = principal.telaDialogo.koalaVenceu;
+
+            // Entrega o resultado diretamente ao lobby, uma única vez.
+            principal.telaLobby.RegistrarResultado(principal.BatalhaAtual, venceu,
+                principal.telaPerguntas.koalahp, principal.telaPerguntas.pontuacaoBatalha);
+
             principal.telaDialogo.batalhaEncerrada = false;
             principal.telaDialogo.koalaVenceu = false;
 
-            if (principal.BatalhaAtual != 7)
+            // Sem vidas principais, mostra o Game Over em vez de voltar ao mapa.
+            if (principal.telaLobby.vidasPrincipais == 0)
             {
-                principal.MostrarTelaLobby();
+                principal.MostrarTelaDerrota();
+                return;
             }
-            else
+
+            // O final da história só acontece após vencer a última batalha.
+            if (principal.BatalhaAtual == 7 && venceu == true)
             {
                 principal.MostrarTelaHistoria();
                 await principal.telaHistoria.MostrarCenaFinal(principal.pontuacaoTotal);
+                return;
             }
+
+            // Todas as outras vitórias e derrotas voltam ao mapa.
+            principal.MostrarTelaLobby();
         }
         
         #region AnimaçãoBotãoLobby
