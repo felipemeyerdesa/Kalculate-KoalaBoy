@@ -72,6 +72,11 @@ namespace Kalculate_KoalaBoy
             {
                 telaDialogo.Hide();
             }
+            if (telaResultados != null)
+            {
+                telaResultados.Hide();
+            }
+
             telaHistoria.ConfigurarCenario();
             telaHistoria.Show();
             telaHistoria.BringToFront();

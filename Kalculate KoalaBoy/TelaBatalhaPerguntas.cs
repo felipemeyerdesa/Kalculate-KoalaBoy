@@ -59,7 +59,7 @@ namespace Kalculate_KoalaBoy
         {
             if (principal.BatalhaAtual == 7)
             {
-                inimigohp = 1;
+                inimigohp = 9;
             }
             else
             {
@@ -992,9 +992,26 @@ namespace Kalculate_KoalaBoy
 
             if (principal.BatalhaAtual != 7 || inimigohp != 1)
             {
-                pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemNormal + inimigohp + ".png"));
-                pbInimigoHp.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemHp + inimigohp + "hp.png"));
+                if (principal.BatalhaAtual == 7)
+                {
+                    if (inimigohp != 0)
+                    {
+                        pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemNormal + inimigohp + ".gif"));
+                        await Task.Delay(900);
+                        pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemNormal + inimigohp + ".png"));
+                    }
+                    else
+                    {
+                        pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemNormal + inimigohp + ".png"));
+                    }
+                }
+                else
+                {
+                    pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemNormal + inimigohp + ".png"));
+                    pbInimigoHp.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemHp + inimigohp + "hp.png"));
+                }
             }
+            
 
             indoParaDireita = false;
             timerAtaque.Start();
@@ -1100,6 +1117,11 @@ namespace Kalculate_KoalaBoy
             pbKoalaHp.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_" + koalahp + "hp.png"));
 
             pbInimigo.Size = new Size(255, 335);
+
+            if (principal.BatalhaAtual == 7)
+            {
+                pbInimigo.Location = new Point(806, 352);
+            }
 
             if (principal.BatalhaAtual == 3)
             {
@@ -1478,7 +1500,7 @@ namespace Kalculate_KoalaBoy
         #endregion
 
         #region Configura Cenario
-        public void ConfigurarCenario()
+        public async void ConfigurarCenario()
         {
             if (principal.BatalhaAtual == 7)
             {
@@ -1498,7 +1520,16 @@ namespace Kalculate_KoalaBoy
             pbKoalaBoy.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoy3.png"));
             pbKoalaHp.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_3hp.png"));
 
-            pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemNormal + inimigohp + ".png"));
+            if (principal.BatalhaAtual != 7)
+            {
+                pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemNormal + inimigohp + ".png"));
+                
+            }
+            else
+            {
+                pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemNormal + inimigohp + ".gif"));
+            }
+
             pbInimigoHp.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemHp + inimigohp + "hp.png"));
 
             // ArqUrb
@@ -1543,8 +1574,15 @@ namespace Kalculate_KoalaBoy
                 pbKoalaBoy.Location = new Point(120, 352);
                 pbInimigo.Location = new Point(905, 352);
             }
+
+            if (principal.BatalhaAtual == 7)
+            {
+                await Task.Delay(900);
+                pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemNormal + inimigohp + ".png"));
+            }
         }
 
+        #region Cenario para Gif
         private PictureBox pbCenario;
 
         private void CriarPbCenario()
@@ -1552,13 +1590,12 @@ namespace Kalculate_KoalaBoy
             if (pbCenario != null)
                 return;
 
-            pbCenario = new PictureBox
-            {
-                Name = "pbCenario",
-                Parent = this,
-                Dock = DockStyle.Fill,
-                SizeMode = PictureBoxSizeMode.StretchImage
-            };
+            pbCenario = new PictureBox();
+
+            pbCenario.Name = "pbCenario";
+            pbCenario.Parent = this;
+            pbCenario.Dock = DockStyle.Fill;
+            pbCenario.SizeMode = PictureBoxSizeMode.StretchImage;
 
             pbCenario.SendToBack();
 
@@ -1572,6 +1609,7 @@ namespace Kalculate_KoalaBoy
             pbInimigoHp.Parent = pbCenario;
             pbKoalaHp.Parent = pbCenario;
         }
+        #endregion
 
         #region Imagens Inimigo
         private string pastaInimigo;

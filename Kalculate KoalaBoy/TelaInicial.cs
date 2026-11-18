@@ -127,7 +127,6 @@ namespace Kalculate_KoalaBoy
         }
 
         #endregion
-        // Fora dos métodos
 
         #region Botão Tutorial
         private TelaTutorial tutorial;

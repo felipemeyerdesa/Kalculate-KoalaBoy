@@ -48,9 +48,16 @@ namespace Kalculate_KoalaBoy
 
             pbKoalaBoy.Left += 25;
 
-            if (pbKoalaBoy.Left >= 532)
+            if (pbKoalaBoy.Left >= 532 && principal.BatalhaAtual != 7) 
             {
                 pbKoalaBoy.Left = 532;
+                timerAnimacao.Stop();
+                await Task.Delay(1000);
+                ConfigurarPainelResultado();
+            }
+            else if (pbKoalaBoy.Left >= 354 && principal.BatalhaAtual == 7)
+            {
+                pbKoalaBoy.Left = 354;
                 timerAnimacao.Stop();
                 await Task.Delay(1000);
                 ConfigurarPainelResultado();
@@ -119,7 +126,8 @@ namespace Kalculate_KoalaBoy
             {
                 pbKoalaBoy.Location = new Point(120, 352);
                 pbInimigo.Location = new Point(905, 352);
-                pbFragmento.Location = new Point(748, 454);
+                pbFragmento.Size = new Size(238, 143);
+                pbFragmento.Location = new Point(575, 370);
             }
         }
         #endregion
@@ -136,6 +144,8 @@ namespace Kalculate_KoalaBoy
             else
             {
                 pbInimigoResultado.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, inimigo + "1.png"));
+                pbFragmento.Size = new Size(155, 76);
+                pbFragmento.Location = new Point(492, 260);
                 pbBotaoLobby.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaResultados", "BotãoVerFinal.png"));
             }
 
@@ -176,7 +186,7 @@ namespace Kalculate_KoalaBoy
         private string inimigo;
         private string resultado;
 
-        private void DefinirImagens()
+        public void DefinirImagens()
         {
             // ArqUrb
             if (principal.BatalhaAtual == 1)
@@ -230,9 +240,9 @@ namespace Kalculate_KoalaBoy
             else if (principal.BatalhaAtual == 7)
             {
                 pastaInimigo = "Engenharia";
-                cenario = "Engenharia.png";
+                cenario = "EngenhariaDestruida.gif";
                 inimigo = "Urubu";
-                fragmento = "EngenhariaFragmento.gif";
+                fragmento = "FragmentosDropados.gif";
             }
 
             if (principal.telaDialogo.koalaVenceu == true)
@@ -247,9 +257,12 @@ namespace Kalculate_KoalaBoy
         }
         #endregion
 
-        #region Botão Voltar Lobby
-        private void pbBotaoLobby_Click(object sender, EventArgs e)
+        #region Botão Voltar
+        private async void pbBotaoLobby_Click(object sender, EventArgs e)
         {
+            principal.telaDialogo.batalhaEncerrada = false;
+            principal.telaDialogo.koalaVenceu = false;
+
             if (principal.BatalhaAtual != 7)
             {
                 principal.MostrarTelaLobby();
@@ -257,6 +270,7 @@ namespace Kalculate_KoalaBoy
             else
             {
                 principal.MostrarTelaHistoria();
+                await principal.telaHistoria.MostrarCenaFinal(principal.pontuacaoTotal);
             }
         }
         
@@ -351,6 +365,5 @@ namespace Kalculate_KoalaBoy
         #endregion
 
         #endregion
-
     }
 }

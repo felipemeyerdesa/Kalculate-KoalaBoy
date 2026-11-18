@@ -34,8 +34,6 @@
             this.pbUrubu = new System.Windows.Forms.PictureBox();
             this.timerAnimacao = new System.Windows.Forms.Timer(this.components);
             this.timerBotaoFechar = new System.Windows.Forms.Timer(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbKoalaBoy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbUrubu)).BeginInit();
             this.SuspendLayout();
@@ -101,7 +99,5 @@
         private System.Windows.Forms.PictureBox pbUrubu;
         private System.Windows.Forms.Timer timerAnimacao;
         private System.Windows.Forms.Timer timerBotaoFechar;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timer2;
     }
 }
