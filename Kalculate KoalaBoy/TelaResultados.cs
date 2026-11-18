@@ -77,42 +77,49 @@ namespace Kalculate_KoalaBoy
             {
                 pbKoalaBoy.Location = new Point(120, 252);
                 pbInimigo.Location = new Point(905, 252);
+                pbFragmento.Location = new Point(748, 354);
             }
             // Biomed
             else if (principal.BatalhaAtual == 2)
             {
                 pbKoalaBoy.Location = new Point(120, 252);
                 pbInimigo.Location = new Point(905, 252);
+                pbFragmento.Location = new Point(748, 354);
             }
             // Direito
             else if (principal.BatalhaAtual == 3)
             {
                 pbKoalaBoy.Location = new Point(120, 225);
                 pbInimigo.Location = new Point(905, 225);
+                pbFragmento.Location = new Point(748, 327);
             }
             // Educação Física
             else if (principal.BatalhaAtual == 4)
             {
                 pbKoalaBoy.Location = new Point(120, 252);
                 pbInimigo.Location = new Point(905, 252);
+                pbFragmento.Location = new Point(748, 354);
             }
             // Artes e Comunicação
             else if (principal.BatalhaAtual == 5)
             {
                 pbKoalaBoy.Location = new Point(120, 352);
                 pbInimigo.Location = new Point(905, 352);
+                pbFragmento.Location = new Point(748, 454);
             }
             // Comércio Exterior
             else if (principal.BatalhaAtual == 6)
             {
                 pbKoalaBoy.Location = new Point(120, 300);
                 pbInimigo.Location = new Point(905, 300);
+                pbFragmento.Location = new Point(748, 402);
             }
             // Engenharia
             else if (principal.BatalhaAtual == 7)
             {
-                pbKoalaBoy.Location = new Point(120, 252);
-                pbInimigo.Location = new Point(905, 252);
+                pbKoalaBoy.Location = new Point(120, 352);
+                pbInimigo.Location = new Point(905, 352);
+                pbFragmento.Location = new Point(748, 454);
             }
         }
         #endregion
@@ -122,7 +129,15 @@ namespace Kalculate_KoalaBoy
         {
             pbResultado.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaResultados", resultado + ".gif"));
 
-            pbInimigoResultado.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, inimigo + "3.png"));
+            if (principal.BatalhaAtual != 7)
+            {
+                pbInimigoResultado.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, inimigo + "3.png"));
+            }
+            else
+            {
+                pbInimigoResultado.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, inimigo + "1.png"));
+                pbBotaoLobby.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaResultados", "BotãoVerFinal.png"));
+            }
 
             pbLogo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaInicial", "KoalaLogo.gif"));
 
@@ -235,7 +250,14 @@ namespace Kalculate_KoalaBoy
         #region Botão Voltar Lobby
         private void pbBotaoLobby_Click(object sender, EventArgs e)
         {
-            principal.MostrarTelaLobby();
+            if (principal.BatalhaAtual != 7)
+            {
+                principal.MostrarTelaLobby();
+            }
+            else
+            {
+                principal.MostrarTelaHistoria();
+            }
         }
         
         #region AnimaçãoBotãoLobby

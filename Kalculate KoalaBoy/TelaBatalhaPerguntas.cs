@@ -23,6 +23,11 @@ namespace Kalculate_KoalaBoy
             ConfigurarEfeitoDano();
             ConfigurarEfeitoFeedback();
             DefinirImagensInimigo();
+
+            if (principal.BatalhaAtual == 7)
+            {
+                CriarPbCenario();
+            }
         }
 
         private async void TelaBatalhaPerguntas_Load(object sender, EventArgs e)
@@ -47,6 +52,22 @@ namespace Kalculate_KoalaBoy
 
         public int acertos = 0;
         private int combo = 0;
+        #endregion
+
+        #region Inicializa a Vida do Inimigo
+        public void InicializarVidaInimigo()
+        {
+            if (principal.BatalhaAtual == 7)
+            {
+                inimigohp = 1;
+            }
+            else
+            {
+                inimigohp = 3;
+            }
+
+            label1.Text = inimigohp.ToString();
+        }
         #endregion
 
         #region Perguntas
@@ -607,17 +628,16 @@ namespace Kalculate_KoalaBoy
             #endregion
 
             #region Engenharia
-            // OPERAÇOES COMBINADAS
+            // OPERAÇÕES COMBINADAS
             else if (principal.BatalhaAtual == 7)
             {
-
                 if (perguntaAtual == 1)
                 {
-                    A = random.Next(2, 5) * 2;
-                    B = random.Next(3, 8);
-                    C = random.Next(1, 4) * 2;
+                    A = random.Next(2, 5);
+                    B = random.Next(3, 7);
+                    C = random.Next(1, 4);
 
-                    respostaCorreta = (A * B - C) / 2;
+                    respostaCorreta = A * B - C;
 
                     limiteMinimo = Math.Max(1, respostaCorreta - 3);
                     limiteMaximo = respostaCorreta + 4;
@@ -626,15 +646,14 @@ namespace Kalculate_KoalaBoy
                     AlternativaErrada2 = random.Next(limiteMinimo, limiteMaximo);
 
                     // Exibe o enunciado da pergunta 1 - Civil
-                    lblCaixaDialogo.Text = "O Urubu separou " + A + " estruturas com " + B + " vigas cada. Após descartar " + C + " vigas, dividiu as restantes igualmente entre 2 obras. Quantas vigas cada obra recebeu?";
+                    lblCaixaDialogo.Text = "O Urubu empilhou " + A + " pilhas de " + B + " tijolos para uma obra. Usou " + C + " tijolos. Quantos sobraram?";
                 }
                 else if (perguntaAtual == 2)
                 {
-                    A = random.Next(2, 5);
-                    B = random.Next(1, 4) * 4;
-                    C = random.Next(2, 10);
+                    A = random.Next(4, 11) * 2;
+                    B = random.Next(2, 8);
 
-                    respostaCorreta = A * B / 4 * 3 + C;
+                    respostaCorreta = A / 2 + B;
 
                     limiteMinimo = Math.Max(1, respostaCorreta - 3);
                     limiteMaximo = respostaCorreta + 4;
@@ -643,15 +662,15 @@ namespace Kalculate_KoalaBoy
                     AlternativaErrada2 = random.Next(limiteMinimo, limiteMaximo);
 
                     // Exibe o enunciado da pergunta 2 - Produção
-                    lblCaixaDialogo.Text = "O Urubu organizou " + A + " linhas de produção, cada uma fabricando " + B + " peças. Após descartar 25% das peças, produziu mais " + C + ". Quantas peças ficaram disponíveis?";
+                    lblCaixaDialogo.Text = "Uma fábrica do Urubu produziu " + A + " peças. Vendeu 50% e produziu mais " + B + ". Quantas peças restaram?";
                 }
                 else if (perguntaAtual == 3)
                 {
-                    B = random.Next(2, 6);
-                    int quociente = random.Next(5, 11);
+                    B = random.Next(2, 5);
+                    int quociente = random.Next(4, 9);
 
                     A = B * quociente;
-                    C = random.Next(1, quociente);
+                    C = random.Next(1, 4);
 
                     respostaCorreta = A / B - C;
 
@@ -662,15 +681,15 @@ namespace Kalculate_KoalaBoy
                     AlternativaErrada2 = random.Next(limiteMinimo, limiteMaximo);
 
                     // Exibe o enunciado da pergunta 3 - Mecânica
-                    lblCaixaDialogo.Text = "O Urubu distribuiu " + A + " litros de óleo lubrificante igualmente entre " + B + " máquinas. Cada máquina utilizou " + C + " litros. Quantos litros sobraram em cada máquina?";
+                    lblCaixaDialogo.Text = "O Urubu dividiu " + A + " litros de óleo entre " + B + " motores. Cada motor gastou " + C + " litros. Quanto sobrou por motor?";
                 }
                 else if (perguntaAtual == 4)
                 {
-                    A = random.Next(1, 4) * 2;
-                    B = random.Next(3, 9);
-                    C = random.Next(2, 11);
+                    A = random.Next(2, 5);
+                    B = random.Next(3, 7);
+                    C = random.Next(1, 4);
 
-                    respostaCorreta = A * B / 2 + C;
+                    respostaCorreta = A * B - C;
 
                     limiteMinimo = Math.Max(1, respostaCorreta - 3);
                     limiteMaximo = respostaCorreta + 4;
@@ -679,15 +698,14 @@ namespace Kalculate_KoalaBoy
                     AlternativaErrada2 = random.Next(limiteMinimo, limiteMaximo);
 
                     // Exibe o enunciado da pergunta 4 - Computação
-                    lblCaixaDialogo.Text = "O Urubu montou " + A + " computadores com " + B + " módulos de memória cada. Metade dos módulos foi enviada para testes e chegaram mais " + C + ". Quantos módulos ficaram disponíveis?";
+                    lblCaixaDialogo.Text = "O Urubu montou " + A + " computadores com " + B + " chips cada. " + C + " chips queimaram. Quantos continuam funcionando?";
                 }
                 else if (perguntaAtual == 5)
                 {
-                    A = random.Next(2, 5);
-                    B = random.Next(2, 7);
-                    C = random.Next(2, 6);
+                    A = random.Next(2, 6);
+                    B = random.Next(3, 7);
 
-                    respostaCorreta = A * B * C;
+                    respostaCorreta = A * B;
 
                     limiteMinimo = Math.Max(1, respostaCorreta - 3);
                     limiteMaximo = respostaCorreta + 4;
@@ -696,14 +714,14 @@ namespace Kalculate_KoalaBoy
                     AlternativaErrada2 = random.Next(limiteMinimo, limiteMaximo);
 
                     // Exibe o enunciado da pergunta 5 - Química
-                    lblCaixaDialogo.Text = "O Urubu preparou " + A + " lotes de soluções químicas. Cada lote possui " + B + " frascos com " + C + " litros de solução cada. Quantos litros foram preparados ao todo?";
+                    lblCaixaDialogo.Text = "No laboratório, o Urubu preparou " + A + " lotes com " + B + " frascos de solução cada. Quantos frascos preparou?";
                 }
                 else if (perguntaAtual == 6)
                 {
-                    C = random.Next(2, 6);
-                    int quociente = random.Next(3, 10);
+                    C = random.Next(2, 5);
+                    int quociente = random.Next(3, 7);
 
-                    B = random.Next(3, 15);
+                    B = random.Next(2, 7);
                     A = B + C * quociente;
 
                     respostaCorreta = (A - B) / C;
@@ -715,13 +733,13 @@ namespace Kalculate_KoalaBoy
                     AlternativaErrada2 = random.Next(limiteMinimo, limiteMaximo);
 
                     // Exibe o enunciado da pergunta 6 - Elétrica
-                    lblCaixaDialogo.Text = "O Urubu tinha " + A + " metros de fio elétrico e utilizou " + B + " metros em uma instalação. Dividindo o restante igualmente entre " + C + " circuitos, quantos metros cada circuito recebeu?";
+                    lblCaixaDialogo.Text = "O Urubu tinha " + A + " metros de fio. Usou " + B + " e dividiu o restante entre " + C + " circuitos. Quantos metros por circuito?";
                 }
                 else if (perguntaAtual == 7)
                 {
-                    A = random.Next(2, 11);
-                    B = random.Next(2, 11);
-                    C = random.Next(2, 6);
+                    A = random.Next(2, 6);
+                    B = random.Next(1, 4);
+                    C = random.Next(2, 5);
 
                     respostaCorreta = (A + B) * C;
 
@@ -732,13 +750,13 @@ namespace Kalculate_KoalaBoy
                     AlternativaErrada2 = random.Next(limiteMinimo, limiteMaximo);
 
                     // Exibe o enunciado da pergunta 7 - Eletrônica
-                    lblCaixaDialogo.Text = "O Urubu tinha " + A + " placas eletrônicas e recebeu mais " + B + ". Cada placa precisa de " + C + " resistores. Quantos resistores serão necessários ao todo?";
+                    lblCaixaDialogo.Text = "O Urubu tinha " + A + " placas de circuito e montou mais " + B + ". Cada placa usa " + C + " resistores. Quantos precisa?";
                 }
                 else if (perguntaAtual == 8)
                 {
-                    A = random.Next(2, 7);
-                    B = random.Next(6, 13);
-                    C = random.Next(1, 5);
+                    A = random.Next(2, 5);
+                    B = random.Next(4, 9);
+                    C = random.Next(1, 4);
 
                     respostaCorreta = A * (B - C);
 
@@ -748,8 +766,58 @@ namespace Kalculate_KoalaBoy
                     AlternativaErrada1 = random.Next(limiteMinimo, limiteMaximo);
                     AlternativaErrada2 = random.Next(limiteMinimo, limiteMaximo);
 
-                    // Exibe o enunciado da pergunta 8 - Controle e Automação
-                    lblCaixaDialogo.Text = "O Urubu programou " + A + " robôs industriais. Cada robô inspeciona " + B + " peças, mas seus sensores identificam " + C + " peças defeituosas por robô. Quantas peças boas são aprovadas ao todo?";
+                    // Exibe o enunciado da pergunta 8 - Mecatrônica
+                    lblCaixaDialogo.Text = "O Urubu fabricou " + A + " robôs. Cada um precisava de " + B + " sensores, mas economizou " + C + " por robô. Quantos sensores utilizou ao todo?";
+                }
+                else if (perguntaAtual == 9)
+                {
+                    A = random.Next(2, 7) * 10;
+                    B = random.Next(1, 6);
+
+                    respostaCorreta = A / 10 + B;
+
+                    limiteMinimo = Math.Max(1, respostaCorreta - 3);
+                    limiteMaximo = respostaCorreta + 4;
+
+                    AlternativaErrada1 = random.Next(limiteMinimo, limiteMaximo);
+                    AlternativaErrada2 = random.Next(limiteMinimo, limiteMaximo);
+
+                    // Exibe o enunciado da pergunta 9 - Final Form
+                    lblCaixaDialogo.Text = "O Urubu encontrou " + A + " bandeiras das atléticas da UNISANTA. Queimou 10% e depois mais " + B + ". Quantas foram destruídas?";
+                }
+                else if (perguntaAtual == 10)
+                {
+                    A = random.Next(2, 6);
+                    B = random.Next(2, 7);
+                    C = random.Next(1, 6);
+
+                    respostaCorreta = A * B + C;
+
+                    limiteMinimo = Math.Max(1, respostaCorreta - 3);
+                    limiteMaximo = respostaCorreta + 4;
+
+                    AlternativaErrada1 = random.Next(limiteMinimo, limiteMaximo);
+                    AlternativaErrada2 = random.Next(limiteMinimo, limiteMaximo);
+
+                    // Exibe o enunciado da pergunta 10 - Final Form
+                    lblCaixaDialogo.Text = "O Urubu lançou " + A + " rajadas de chamas, queimando " + B + " faixas das atléticas por rajada. Depois queimou mais " + C + ". Quantas foram destruídas?";
+                }
+                else if (perguntaAtual == 11)
+                {
+                    C = random.Next(2, 5);
+                    A = random.Next(2, 5) * C;
+                    B = random.Next(1, 4) * C;
+
+                    respostaCorreta = (A + B) / C;
+
+                    limiteMinimo = Math.Max(1, respostaCorreta - 3);
+                    limiteMaximo = respostaCorreta + 4;
+
+                    AlternativaErrada1 = random.Next(limiteMinimo, limiteMaximo);
+                    AlternativaErrada2 = random.Next(limiteMinimo, limiteMaximo);
+
+                    // Exibe o enunciado da pergunta 11 - Final Form
+                    lblCaixaDialogo.Text = "O Urubu queimou " + A + " troféus e depois mais " + B + ". Eles pertenciam igualmente a " + C + " atléticas. Quantos troféus cada atlética perdeu?";
                 }
             }
             #endregion
@@ -878,7 +946,6 @@ namespace Kalculate_KoalaBoy
         #region Ataque KoalaBoy
         private async Task Ataque()
         {
-            DefinirImagensInimigo();
 
             indoParaDireita = true;
             timerAtaque.Start();
@@ -887,6 +954,7 @@ namespace Kalculate_KoalaBoy
             {
                 await Task.Delay(15);
             }
+
 
             pbKoalaBoy.Size = new Size(325, 335);
 
@@ -901,7 +969,15 @@ namespace Kalculate_KoalaBoy
 
             await Task.Delay(850);
 
-            pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemDefendendo));
+            if (principal.BatalhaAtual == 7)
+            {
+                pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemDefendendo + inimigohp + ".png"));
+            }
+            else
+            {
+                pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemDefendendo));
+            }
+
 
             pbEfeitoDanoInimigo.Visible = true;
             await Task.Delay(1200);
@@ -911,11 +987,14 @@ namespace Kalculate_KoalaBoy
 
             inimigohp--;
 
-            pbInimigoHp.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemHp + inimigohp + "hp.png"));
-
             pbKoalaBoy.Size = new Size(220, 335);
             pbKoalaBoy.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoy" + koalahp + ".png"));
-            pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemNormal + inimigohp + ".png"));
+
+            if (principal.BatalhaAtual != 7 || inimigohp != 1)
+            {
+                pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemNormal + inimigohp + ".png"));
+                pbInimigoHp.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemHp + inimigohp + "hp.png"));
+            }
 
             indoParaDireita = false;
             timerAtaque.Start();
@@ -925,6 +1004,24 @@ namespace Kalculate_KoalaBoy
                 await Task.Delay(15);
             }
 
+            if (principal.BatalhaAtual == 7 && inimigohp == 1)
+            {
+                await Task.Delay(500);
+                pbInimigo.Size = new Size(409, 409);
+                pbInimigo.Location = new Point(827, 311);
+                pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, "UrubuTransformação.gif"));
+                await Task.Delay(6500);
+
+                pbCenario.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, "EngenhariaExplosão.gif"));
+                await Task.Delay(3100);
+
+                pbCenario.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, "EngenhariaDestruida.gif"));
+                pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, "Urubu1.png"));
+                pbInimigoHp.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemHp + inimigohp + "hp.png"));
+                pbInimigo.Size = new Size(255, 335);
+                pbInimigo.Location = new Point(905, 352);
+            }
+
             await Task.Delay(500);
         }
         #endregion
@@ -932,8 +1029,6 @@ namespace Kalculate_KoalaBoy
         #region Ataque Inimigo
         private async Task AtaqueInimigo()
         {
-            DefinirImagensInimigo();
-
             indoParaEsquerda = true;
             timerAtaque.Start();
 
@@ -951,20 +1046,37 @@ namespace Kalculate_KoalaBoy
             {
                 pbInimigo.Size = new Size(496, 345);
             }
-            else
+            if (principal.BatalhaAtual == 7)
             {
-                pbInimigo.Size = new Size(350, 335);
-            }
-
-            if (inimigohp == 3)
-            {
-                pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemAtacando));
+                pbInimigo.Size = new Size(718, 335);
             }
             else
             {
-                pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemAtacandoFerido));
+                pbInimigo.Size = new Size(350, 335); 
             }
 
+            if (principal.BatalhaAtual == 7)
+            {
+                if (inimigohp == 1)
+                {
+                    pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemAtacando + "1.gif"));
+                }
+                else
+                {
+                    pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemAtacando + inimigohp + ".gif"));
+                }
+            }
+            else
+            {
+                if (inimigohp == 3)
+                {
+                    pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemAtacando));
+                }
+                else
+                {
+                    pbInimigo.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, imagemAtacandoFerido));
+                }
+            }
 
             await Task.Delay(850);
 
@@ -988,6 +1100,7 @@ namespace Kalculate_KoalaBoy
             pbKoalaHp.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_" + koalahp + "hp.png"));
 
             pbInimigo.Size = new Size(255, 335);
+
             if (principal.BatalhaAtual == 3)
             {
                 pbInimigo.Top = 225;
@@ -1034,9 +1147,14 @@ namespace Kalculate_KoalaBoy
                 {
                     pbInimigo.Left -= 25;
 
-                    if (pbInimigo.Left <= 340)
+                    if (pbInimigo.Left <= 340 && principal.BatalhaAtual != 7)
                     {
                         pbInimigo.Left = 340;
+                        timerAtaque.Stop();
+                    }
+                    if (pbInimigo.Left <= 806 && principal.BatalhaAtual == 7)
+                    {
+                        pbInimigo.Left = 806;
                         timerAtaque.Stop();
                     }
                 }
@@ -1320,6 +1438,10 @@ namespace Kalculate_KoalaBoy
             {
                 pbEfeitoDanoInimigo.Location = new Point(10, 80);
             }
+            else if (principal.BatalhaAtual == 7)
+            {
+                pbEfeitoDanoInimigo.Location = new Point(20, 50);
+            }
         }
         #endregion
 
@@ -1358,7 +1480,20 @@ namespace Kalculate_KoalaBoy
         #region Configura Cenario
         public void ConfigurarCenario()
         {
-            BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, cenario));
+            if (principal.BatalhaAtual == 7)
+            {
+                if (pbCenario == null)
+                {
+                    CriarPbCenario();
+                }
+
+                pbCenario.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, cenario));
+            }
+            else
+            {
+                BackgroundImage = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", pastaInimigo, cenario));
+            }
+            
 
             pbKoalaBoy.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoy3.png"));
             pbKoalaHp.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_3hp.png"));
@@ -1405,11 +1540,38 @@ namespace Kalculate_KoalaBoy
             // Engenharia
             else if (principal.BatalhaAtual == 7)
             {
-                pbKoalaBoy.Location = new Point(120, 225);
-                pbInimigo.Location = new Point(905, 225);
+                pbKoalaBoy.Location = new Point(120, 352);
+                pbInimigo.Location = new Point(905, 352);
             }
         }
-        #endregion
+
+        private PictureBox pbCenario;
+
+        private void CriarPbCenario()
+        {
+            if (pbCenario != null)
+                return;
+
+            pbCenario = new PictureBox
+            {
+                Name = "pbCenario",
+                Parent = this,
+                Dock = DockStyle.Fill,
+                SizeMode = PictureBoxSizeMode.StretchImage
+            };
+
+            pbCenario.SendToBack();
+
+            pbKoalaBoy.Parent = pbCenario;
+            pbInimigo.Parent = pbCenario;
+            pbCombo.Parent = pbCenario;
+            pbResposta.Parent = pbCenario;
+            pbPontos.Parent = pbCenario;
+            panelAlternativas.Parent = pbCenario;
+            panelCaixaPerguntas.Parent = pbCenario;
+            pbInimigoHp.Parent = pbCenario;
+            pbKoalaHp.Parent = pbCenario;
+        }
 
         #region Imagens Inimigo
         private string pastaInimigo;
@@ -1420,7 +1582,7 @@ namespace Kalculate_KoalaBoy
         private string imagemNormal;
         private string imagemHp;
 
-        private void DefinirImagensInimigo()
+        public void DefinirImagensInimigo()
         {
             // ArqUrb
             if (principal.BatalhaAtual == 1)
@@ -1491,15 +1653,16 @@ namespace Kalculate_KoalaBoy
             // Engenharia
             else if (principal.BatalhaAtual == 7)
             {
-                pastaInimigo = "";
-                cenario = ".png";
-                imagemAtacando = ".gif";
-                imagemAtacandoFerido = ".gif";
-                imagemDefendendo = ".png";
-                imagemNormal = "";
-                imagemHp = "";
+                pastaInimigo = "Engenharia";
+                cenario = "Engenharia.png";
+                imagemAtacando = "UrubuAtacando";
+                imagemDefendendo = "UrubuDefendendo";
+                imagemNormal = "Urubu";
+                imagemHp = "urubu_";
             }
         }
+        #endregion
+
         #endregion
 
         #region Botão Alternativa

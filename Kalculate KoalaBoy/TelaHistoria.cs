@@ -32,12 +32,13 @@ namespace Kalculate_KoalaBoy
 
         #region Animação Urubu e KoalaBoy
         bool pausaUrubuFeita = false;
+        bool sairBiblioteca = false;
         private async void timerAnimacao_Tick(object sender, EventArgs e)
         {
 
             pbUrubu.Left += 25;
 
-            if (pbUrubu.Left >= 310 && pausaUrubuFeita == false)
+            if (pbUrubu.Left >= 310 && pausaUrubuFeita == false && sairBiblioteca == false)
             {
                 
                 pausaUrubuFeita = true;
@@ -48,7 +49,7 @@ namespace Kalculate_KoalaBoy
                 pbUrubu.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", "UrubuFrameFinal.png"));
                 timerAnimacao.Start();
             }
-            else if (pbUrubu.Left >= 630 && pausaUrubuFeita == true)
+            else if (pbUrubu.Left >= 630 && pausaUrubuFeita == true && sairBiblioteca == false)
             {
                 pbUrubu.Left = 630;
                 timerAnimacao.Stop();
@@ -61,7 +62,18 @@ namespace Kalculate_KoalaBoy
                 pbKoalaBoy.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", "KoalaBoyFrameFinal.png"));
                 mostrarLendaFragmento = true;
                 principal.MostrarTelaBatalhaDialogo();
-                
+                await Task.Delay(2100);
+                principal.telaDialogo.MostrarBotaoSkipHistoria();
+
+
+            }
+            else if (pbUrubu.Left >= 1280 && sairBiblioteca == true)
+            {
+                pbUrubu.Visible = false;
+                timerAnimacao.Stop();
+                await Task.Delay(1000);
+                principal.MostrarTelaBatalhaDialogo();
+
             }
         }
 
@@ -110,7 +122,6 @@ namespace Kalculate_KoalaBoy
         #endregion
 
         #region AnimaçãoBotãoFecharLenda
-
         private int larguraAlvoFecharLenda = 50;
         private int alturaAlvoFecharLenda = 45;
         private bool mouseEmCimaFecharLenda = false;
@@ -199,14 +210,44 @@ namespace Kalculate_KoalaBoy
 
         #endregion
 
+        #region Configura o Cenario
+        public async void ConfigurarCenario()
+        {
+            if (principal.BatalhaAtual == 7 && principal.telaDialogo.dialogoAtual == 11)
+            {
+                pbKoalaBoy.Location = new Point(346, 256);
+                pbUrubu.Size = new Size(338, 342);
+                pbUrubu.Location = new Point(566, 249);
+                pbKoalaBoy.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyDefendendo.png"));
+                pbUrubu.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuAtacandoTraição.gif"));
+
+                await Task.Delay(2000);
+                principal.MostrarTelaBatalhaDialogo();
+            }
+            else if (principal.BatalhaAtual == 7 && principal.telaDialogo.dialogoAtual == 34)
+            {
+                await Task.Delay(1000);
+                sairBiblioteca = true;
+                timerAnimacao.Start();
+            }
+        }
+        #endregion
+
         private async void TelaHistoria_VisibleChanged(object sender, EventArgs e)
         {
-            if (this.Visible && mostrarLendaFragmento == true)
+            if (this.Visible && mostrarLendaFragmento == true && principal.BatalhaAtual == 0)
             {
                 pbKoalaBoy.Visible = false;
                 pbUrubu.Visible = false;
                 pbLendaFragmento.Visible = true;
                 pbBotaoFecharLenda.Visible = true;
+            }
+            if (this.Visible  && principal.BatalhaAtual == 7)
+            {
+                pbKoalaBoy.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoy2.png"));
+                pbKoalaBoy.Location = new Point(346, 256);
+                pbUrubu.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFragmentos.png"));
+
             }
         }
 

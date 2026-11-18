@@ -46,6 +46,7 @@
             this.timerBotaoAlternativas = new System.Windows.Forms.Timer(this.components);
             this.timerAtaque = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbKoalaHp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbInimigoHp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbKoalaBoy)).BeginInit();
@@ -88,7 +89,7 @@
             this.pbKoalaBoy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pbKoalaBoy.BackColor = System.Drawing.Color.Transparent;
             this.pbKoalaBoy.Image = ((System.Drawing.Image)(resources.GetObject("pbKoalaBoy.Image")));
-            this.pbKoalaBoy.Location = new System.Drawing.Point(120, 225);
+            this.pbKoalaBoy.Location = new System.Drawing.Point(120, 352);
             this.pbKoalaBoy.Margin = new System.Windows.Forms.Padding(2);
             this.pbKoalaBoy.Name = "pbKoalaBoy";
             this.pbKoalaBoy.Size = new System.Drawing.Size(220, 335);
@@ -101,7 +102,7 @@
             this.pbInimigo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pbInimigo.BackColor = System.Drawing.Color.Transparent;
             this.pbInimigo.Image = ((System.Drawing.Image)(resources.GetObject("pbInimigo.Image")));
-            this.pbInimigo.Location = new System.Drawing.Point(905, 225);
+            this.pbInimigo.Location = new System.Drawing.Point(806, 352);
             this.pbInimigo.Margin = new System.Windows.Forms.Padding(2);
             this.pbInimigo.Name = "pbInimigo";
             this.pbInimigo.Size = new System.Drawing.Size(255, 335);
@@ -255,14 +256,23 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(344, 164);
+            this.pictureBox1.Location = new System.Drawing.Point(331, 330);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(389, 396);
+            this.pictureBox1.Size = new System.Drawing.Size(718, 335);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 13;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1094, 200);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "label1";
             // 
             // TelaBatalhaPerguntas
             // 
@@ -270,6 +280,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.pbKoalaHp);
             this.Controls.Add(this.pbInimigoHp);
             this.Controls.Add(this.panelCaixaPerguntas);
@@ -292,6 +303,7 @@
             this.panelCaixaPerguntas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -316,5 +328,6 @@
         private System.Windows.Forms.PictureBox pbResposta;
         private System.Windows.Forms.PictureBox pbPontos;
         private System.Windows.Forms.PictureBox pbCombo;
+        private System.Windows.Forms.Label label1;
     }
 }
