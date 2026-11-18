@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
+using System.IO;
 
 namespace Kalculate_KoalaBoy
 {
@@ -22,7 +23,7 @@ namespace Kalculate_KoalaBoy
         }
 
         #region Variaveis
-        public int BatalhaAtual = 7;
+        public int BatalhaAtual = 0;
         public TelaInicial telaInicial;
         public TelaTutorial telaTutorial;
         public TelaHistoria telaHistoria;
@@ -105,6 +106,9 @@ namespace Kalculate_KoalaBoy
 
             telaLobby.Show();
             telaLobby.BringToFront();
+
+            // Faz o lobby receber as teclas A e D quando ele é aberto.
+            telaLobby.Focus();
         }
         #endregion
 
@@ -181,6 +185,42 @@ namespace Kalculate_KoalaBoy
             telaResultados.Show();
             telaResultados.BringToFront();
         }
+        #endregion
+
+        #region Derrota definitiva - Game Over
+
+        public void MostrarTelaDerrota()
+        {
+            // Cobre as outras telas com a imagem de derrota.
+            Panel panelDerrota = new Panel();
+            panelDerrota.Name = "panelDerrota";
+            panelDerrota.Dock = DockStyle.Fill;
+            panelDerrota.BackgroundImageLayout = ImageLayout.Stretch;
+            panelDerrota.BackgroundImage = Image.FromFile(Path.Combine(
+                AppContext.BaseDirectory, "Imagens", "TelaDerrota", "Derrota.png"));
+
+            // Um botão simples na parte de baixo fecha a janela do jogo.
+            Button btnFecharJogo = new Button();
+            btnFecharJogo.Name = "btnFecharJogo";
+            btnFecharJogo.Text = "FECHAR JOGO";
+            btnFecharJogo.Dock = DockStyle.Bottom;
+            btnFecharJogo.Height = 40;
+            btnFecharJogo.BackColor = Color.White;
+            btnFecharJogo.Font = new Font("Arial", 12, FontStyle.Bold);
+            btnFecharJogo.Click += new EventHandler(btnFecharJogo_Click);
+            panelDerrota.Controls.Add(btnFecharJogo);
+
+            panelPrincipal.Controls.Add(panelDerrota);
+            panelDerrota.BringToFront();
+            btnFecharJogo.Focus();
+        }
+
+        private void btnFecharJogo_Click(object sender, EventArgs e)
+        {
+            // Ao fechar a janela principal, o jogo também é encerrado.
+            this.Close();
+        }
+
         #endregion
 
         #region DoubleBuffered em Paineis
