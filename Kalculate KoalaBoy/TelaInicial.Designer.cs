@@ -33,8 +33,11 @@
             this.pbBotaoStart = new System.Windows.Forms.PictureBox();
             this.timerBotaoStart = new System.Windows.Forms.Timer(this.components);
             this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.pbBotaoTutorial = new System.Windows.Forms.PictureBox();
+            this.timerBotaoTutorial = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbBotaoStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBotaoTutorial)).BeginInit();
             this.SuspendLayout();
             // 
             // pbBotaoStart
@@ -74,12 +77,37 @@
             this.pbLogo.TabIndex = 1;
             this.pbLogo.TabStop = false;
             // 
+            // pbBotaoTutorial
+            // 
+            this.pbBotaoTutorial.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pbBotaoTutorial.BackColor = System.Drawing.Color.Transparent;
+            this.pbBotaoTutorial.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbBotaoTutorial.Image = ((System.Drawing.Image)(resources.GetObject("pbBotaoTutorial.Image")));
+            this.pbBotaoTutorial.Location = new System.Drawing.Point(490, 474);
+            this.pbBotaoTutorial.Margin = new System.Windows.Forms.Padding(0);
+            this.pbBotaoTutorial.Name = "pbBotaoTutorial";
+            this.pbBotaoTutorial.Size = new System.Drawing.Size(300, 115);
+            this.pbBotaoTutorial.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbBotaoTutorial.TabIndex = 2;
+            this.pbBotaoTutorial.TabStop = false;
+            this.pbBotaoTutorial.Click += new System.EventHandler(this.pbBotaoTutorial_Click);
+            this.pbBotaoTutorial.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbBotaoTutorial_MouseDown);
+            this.pbBotaoTutorial.MouseEnter += new System.EventHandler(this.pbBotaoTutorial_MouseEnter);
+            this.pbBotaoTutorial.MouseLeave += new System.EventHandler(this.pbBotaoTutorial_MouseLeave);
+            this.pbBotaoTutorial.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbBotaoTutorial_MouseUp);
+            // 
+            // timerBotaoTutorial
+            // 
+            this.timerBotaoTutorial.Interval = 15;
+            this.timerBotaoTutorial.Tick += new System.EventHandler(this.timerBotaoTutorial_Tick);
+            // 
             // TelaInicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.pbBotaoTutorial);
             this.Controls.Add(this.pbLogo);
             this.Controls.Add(this.pbBotaoStart);
             this.DoubleBuffered = true;
@@ -89,6 +117,7 @@
             this.Load += new System.EventHandler(this.TelaInicial_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbBotaoStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBotaoTutorial)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -98,5 +127,7 @@
         private System.Windows.Forms.PictureBox pbBotaoStart;
         private System.Windows.Forms.Timer timerBotaoStart;
         private System.Windows.Forms.PictureBox pbLogo;
+        private System.Windows.Forms.PictureBox pbBotaoTutorial;
+        private System.Windows.Forms.Timer timerBotaoTutorial;
     }
 }

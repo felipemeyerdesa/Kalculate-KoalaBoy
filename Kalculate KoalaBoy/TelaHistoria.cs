@@ -21,23 +21,25 @@ namespace Kalculate_KoalaBoy
             principal = telaPrincipal;
             FontesJogo.AplicarFonte(this);
             ConfigurarLendaFragmento();
+            ConfigurarCenaFinal();
         }
 
         private async void TelaHistoria_Load(object sender, EventArgs e)
         {
-            pbUrubu.Size = new Size(220, 386);
-            await Task.Delay(2000);
-            timerAnimacao.Start();
+            //pbUrubu.Size = new Size(220, 386);
+            //await Task.Delay(2000);
+            //timerAnimacao.Start();
         }
 
         #region Animação Urubu e KoalaBoy
         bool pausaUrubuFeita = false;
+        bool sairBiblioteca = false;
         private async void timerAnimacao_Tick(object sender, EventArgs e)
         {
 
             pbUrubu.Left += 25;
 
-            if (pbUrubu.Left >= 310 && pausaUrubuFeita == false)
+            if (pbUrubu.Left >= 310 && pausaUrubuFeita == false && sairBiblioteca == false)
             {
                 
                 pausaUrubuFeita = true;
@@ -48,7 +50,7 @@ namespace Kalculate_KoalaBoy
                 pbUrubu.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", "UrubuFrameFinal.png"));
                 timerAnimacao.Start();
             }
-            else if (pbUrubu.Left >= 630 && pausaUrubuFeita == true)
+            else if (pbUrubu.Left >= 630 && pausaUrubuFeita == true && sairBiblioteca == false)
             {
                 pbUrubu.Left = 630;
                 timerAnimacao.Stop();
@@ -61,7 +63,18 @@ namespace Kalculate_KoalaBoy
                 pbKoalaBoy.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", "KoalaBoyFrameFinal.png"));
                 mostrarLendaFragmento = true;
                 principal.MostrarTelaBatalhaDialogo();
-                
+                await Task.Delay(2100);
+                principal.telaDialogo.MostrarBotaoSkipHistoria();
+
+
+            }
+            else if (pbUrubu.Left >= 1280 && sairBiblioteca == true)
+            {
+                pbUrubu.Visible = false;
+                timerAnimacao.Stop();
+                await Task.Delay(1000);
+                principal.MostrarTelaBatalhaDialogo();
+
             }
         }
 
@@ -110,7 +123,6 @@ namespace Kalculate_KoalaBoy
         #endregion
 
         #region AnimaçãoBotãoFecharLenda
-
         private int larguraAlvoFecharLenda = 50;
         private int alturaAlvoFecharLenda = 45;
         private bool mouseEmCimaFecharLenda = false;
@@ -199,17 +211,132 @@ namespace Kalculate_KoalaBoy
 
         #endregion
 
+        #region Configura o Cenario
+        public async void ConfigurarCenario()
+        {
+            if (principal.BatalhaAtual == 7 && principal.telaDialogo.dialogoAtual == 11)
+            {
+                pbKoalaBoy.Location = new Point(346, 256);
+                pbUrubu.Size = new Size(338, 342);
+                pbUrubu.Location = new Point(566, 249);
+                pbKoalaBoy.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoyDefendendo.png"));
+                pbUrubu.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuAtacandoTraição.gif"));
+
+                await Task.Delay(2000);
+                principal.MostrarTelaBatalhaDialogo();
+            }
+            else if (principal.BatalhaAtual == 7 && principal.telaDialogo.dialogoAtual == 34)
+            {
+                await Task.Delay(1000);
+                sairBiblioteca = true;
+                timerAnimacao.Start();
+            }
+        }
+        #endregion
+
         private async void TelaHistoria_VisibleChanged(object sender, EventArgs e)
         {
-            if (this.Visible && mostrarLendaFragmento == true)
+            if (this.Visible && mostrarLendaFragmento == true && principal.BatalhaAtual == 0)
             {
                 pbKoalaBoy.Visible = false;
                 pbUrubu.Visible = false;
                 pbLendaFragmento.Visible = true;
                 pbBotaoFecharLenda.Visible = true;
             }
+            else if (this.Visible  && principal.BatalhaAtual == 7 && principal.telaDialogo.batalhaEncerrada == false)
+            {
+                pbKoalaBoy.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoy2.png"));
+                pbKoalaBoy.Location = new Point(346, 256);
+                pbUrubu.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "Engenharia", "UrubuFragmentos.png"));
+            }
         }
 
-       
+        #region Configurar Cena Final
+        private PictureBox pbCenario;
+        private Label lblPontuacaoGeral;
+        private PictureBox pbClassificacao;
+
+        private void ConfigurarCenaFinal()
+        {
+            pbCenario = new PictureBox();
+            pbCenario.Parent = this;
+            pbCenario.Dock = DockStyle.Fill;
+            pbCenario.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbCenario.Visible = false;
+
+            lblPontuacaoGeral = new Label();
+            lblPontuacaoGeral.Parent = pbCenario;
+            lblPontuacaoGeral.Location = new Point(580, 410);
+            lblPontuacaoGeral.Size = new Size(245, 75);
+            lblPontuacaoGeral.BackColor = Color.Transparent;
+            lblPontuacaoGeral.ForeColor = Color.White;
+            lblPontuacaoGeral.Font = new Font("PressStart2P", 32, FontStyle.Regular);
+            lblPontuacaoGeral.TextAlign = ContentAlignment.MiddleCenter;
+            lblPontuacaoGeral.AutoSize = false;
+            lblPontuacaoGeral.Visible = false;
+
+            pbClassificacao = new PictureBox();
+            pbClassificacao.Parent = pbCenario;
+            pbClassificacao.Location = new Point(875, 365);
+            pbClassificacao.Size = new Size(150, 150);
+            pbClassificacao.SizeMode = PictureBoxSizeMode.Zoom;
+            pbClassificacao.BackColor = Color.Transparent;
+            pbClassificacao.Visible = false;
+
+            lblPontuacaoGeral.BringToFront();
+            pbClassificacao.BringToFront();
+        }
+        #endregion
+
+        #region Mostrar Cena Final
+        public async Task MostrarCenaFinal(int pontuacaoTotal)
+        {
+            lblPontuacaoGeral.Text = pontuacaoTotal.ToString();
+
+            string rank;
+
+            if (pontuacaoTotal >= 3600)
+            {
+                rank = "S";
+            }
+            else if (pontuacaoTotal >= 3500)
+            {
+                rank = "A";
+            }
+            else if (pontuacaoTotal >= 3400)
+            {
+                rank = "B";
+            }
+            else if (pontuacaoTotal >= 3300)
+            {
+                rank = "C";
+            }
+            else if (pontuacaoTotal >= 3200)
+            {
+                rank = "D";
+            }
+            else if (pontuacaoTotal >= 3100)
+            {
+                rank = "E";
+            }
+            else
+            {
+                rank = "F";
+            }
+
+            pbClassificacao.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", "Rank" + rank + ".gif"));
+            pbCenario.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", "KoalaFerias.gif"));
+            pbCenario.Visible = true;
+            pbCenario.BringToFront();
+
+            await Task.Delay(10000);
+
+            pbCenario.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", "Praia.gif"));
+
+            lblPontuacaoGeral.Visible = true;
+            pbClassificacao.Visible = true;
+
+        }
+        #endregion
     }
 }

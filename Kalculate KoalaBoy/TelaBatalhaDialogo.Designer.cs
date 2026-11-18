@@ -39,6 +39,7 @@
             this.pbBotaoSkip = new System.Windows.Forms.PictureBox();
             this.timerBotaoSkip = new System.Windows.Forms.Timer(this.components);
             this.pb321Battle = new System.Windows.Forms.PictureBox();
+            this.timerBotaoSkipHistoria = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbKoalaBoy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbInimigo)).BeginInit();
             this.panelDialogo.SuspendLayout();
@@ -151,6 +152,11 @@
             this.pb321Battle.TabStop = false;
             this.pb321Battle.Visible = false;
             // 
+            // timerBotaoSkipHistoria
+            // 
+            this.timerBotaoSkipHistoria.Interval = 25;
+            this.timerBotaoSkipHistoria.Tick += new System.EventHandler(this.timerBotaoSkipHistoria_Tick);
+            // 
             // TelaBatalhaDialogo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -189,5 +195,6 @@
         private System.Windows.Forms.Panel panelBoxDialogo;
         private System.Windows.Forms.PictureBox pbPersonagem;
         private System.Windows.Forms.PictureBox pb321Battle;
+        private System.Windows.Forms.Timer timerBotaoSkipHistoria;
     }
 }

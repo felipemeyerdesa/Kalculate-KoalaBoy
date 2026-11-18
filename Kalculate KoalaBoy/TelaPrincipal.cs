@@ -22,7 +22,7 @@ namespace Kalculate_KoalaBoy
         }
 
         #region Variaveis
-        public int BatalhaAtual = 0;
+        public int BatalhaAtual = 7;
         public TelaInicial telaInicial;
         public TelaTutorial telaTutorial;
         public TelaHistoria telaHistoria;
@@ -72,7 +72,12 @@ namespace Kalculate_KoalaBoy
             {
                 telaDialogo.Hide();
             }
+            if (telaResultados != null)
+            {
+                telaResultados.Hide();
+            }
 
+            telaHistoria.ConfigurarCenario();
             telaHistoria.Show();
             telaHistoria.BringToFront();
         }
@@ -123,6 +128,7 @@ namespace Kalculate_KoalaBoy
                 telaPerguntas.Hide();
             }
 
+            telaDialogo.DefinirImagensInimigo();
             telaDialogo.ConfigurarCenario();
             telaDialogo.Show();
             telaDialogo.BringToFront();
@@ -145,7 +151,9 @@ namespace Kalculate_KoalaBoy
                 telaDialogo.Hide();
             }
 
+            telaPerguntas.InicializarVidaInimigo();
             telaPerguntas.ReiniciarPontuacao();
+            telaPerguntas.DefinirImagensInimigo();
             telaPerguntas.ConfigurarCenario();
             telaPerguntas.Show();
             telaPerguntas.BringToFront();
@@ -168,6 +176,7 @@ namespace Kalculate_KoalaBoy
                 telaDialogo.Hide();
             }
 
+            telaResultados.DefinirImagens();
             telaResultados.ConfigurarCenario();
             telaResultados.Show();
             telaResultados.BringToFront();
