@@ -22,7 +22,7 @@ namespace Kalculate_KoalaBoy
         }
 
         #region Variaveis
-        public int BatalhaAtual = 6;
+        public int BatalhaAtual = 0;
         public TelaInicial telaInicial;
         public TelaTutorial telaTutorial;
         public TelaHistoria telaHistoria;
@@ -31,6 +31,7 @@ namespace Kalculate_KoalaBoy
         public TelaBatalhaPerguntas telaPerguntas;
         public TelaResultados telaResultados;
         public int pontuacaoTotal = 0;
+        public int estrelasTotal = 0;
         #endregion
 
         #region Exibir TelaInicial
@@ -105,6 +106,9 @@ namespace Kalculate_KoalaBoy
 
             telaLobby.Show();
             telaLobby.BringToFront();
+
+            // Faz o lobby receber as teclas A e D quando ele é aberto.
+            telaLobby.Focus();
         }
         #endregion
 
@@ -127,6 +131,10 @@ namespace Kalculate_KoalaBoy
             {
                 telaPerguntas.Hide();
             }
+            if (telaLobby != null)
+            {
+                telaLobby.Hide();
+            }
 
             telaDialogo.DefinirImagensInimigo();
             telaDialogo.ConfigurarCenario();
@@ -142,8 +150,6 @@ namespace Kalculate_KoalaBoy
             {
                 telaPerguntas = new TelaBatalhaPerguntas(this);
                 telaPerguntas.Dock = DockStyle.Fill;
-
-                panelPrincipal.Controls.Add(telaPerguntas);
             }
 
             if (telaDialogo != null)
@@ -155,6 +161,12 @@ namespace Kalculate_KoalaBoy
             telaPerguntas.ReiniciarPontuacao();
             telaPerguntas.DefinirImagensInimigo();
             telaPerguntas.ConfigurarCenario();
+
+            if (panelPrincipal.Controls.Contains(telaPerguntas) == false)
+            {
+                panelPrincipal.Controls.Add(telaPerguntas);
+            }
+
             telaPerguntas.Show();
             telaPerguntas.BringToFront();
         }
@@ -180,6 +192,33 @@ namespace Kalculate_KoalaBoy
             telaResultados.ConfigurarCenario();
             telaResultados.Show();
             telaResultados.BringToFront();
+        }
+        #endregion
+
+        #region Iniciar Nova Fase
+        public void IniciarFase(int fase)
+        {
+            BatalhaAtual = fase;
+
+            if (telaDialogo != null)
+            {
+                telaDialogo.Dispose();
+                telaDialogo = null;
+            }
+
+            if (telaPerguntas != null)
+            {
+                telaPerguntas.Dispose();
+                telaPerguntas = null;
+            }
+
+            if (telaResultados != null)
+            {
+                telaResultados.Dispose();
+                telaResultados = null;
+            }
+
+            MostrarTelaBatalhaDialogo();
         }
         #endregion
 

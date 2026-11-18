@@ -262,6 +262,8 @@ namespace Kalculate_KoalaBoy
         private PictureBox pbCenario;
         private PictureBox pbPontuacaoGeral;
         private PictureBox pbClassificacao;
+        private Label lblEstrelas;
+        private PictureBox pbEstrelaTotal;
 
         private void ConfigurarCenaFinal()
         {
@@ -287,15 +289,36 @@ namespace Kalculate_KoalaBoy
             pbClassificacao.BackColor = Color.Transparent;
             pbClassificacao.Visible = false;
 
+            lblEstrelas = new Label();
+            lblEstrelas.Parent = pbCenario;
+            lblEstrelas.Location = new Point(550, 560);
+            lblEstrelas.AutoSize = true;
+            lblEstrelas.BackColor = Color.Transparent;
+            lblEstrelas.Font = new Font("Press Start 2P", 20, FontStyle.Regular);
+            lblEstrelas.ForeColor = Color.FromArgb(22, 34, 92);
+            lblEstrelas.TextAlign = ContentAlignment.MiddleLeft;
+            lblEstrelas.Visible = false;
+
+            pbEstrelaTotal = new PictureBox();
+            pbEstrelaTotal.Parent = pbCenario;
+            pbEstrelaTotal.BackColor = Color.Transparent;
+            pbEstrelaTotal.Location = new Point(865, 540);
+            pbEstrelaTotal.Size = new Size(48, 48);
+            pbEstrelaTotal.SizeMode = PictureBoxSizeMode.Zoom;
+            pbEstrelaTotal.Visible = false;
+            pbEstrelaTotal.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaResultados", "EstrelaTotal.gif"));
+
             pbPontuacaoGeral.BringToFront();
             pbClassificacao.BringToFront();
+            pbEstrelaTotal.BringToFront();
+            pbEstrelaTotal.BringToFront();
         }
         #endregion
 
         #region Mostrar Cena Final
         public async Task MostrarCenaFinal(int pontuacaoTotal)
         {
-            pbPontuacaoGeral.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", 3250 + ".png"));
+            pbPontuacaoGeral.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "TelaHistoria", pontuacaoTotal + ".png"));
 
             string rank;
 
@@ -339,6 +362,13 @@ namespace Kalculate_KoalaBoy
 
             pbPontuacaoGeral.Visible = true;
             pbClassificacao.Visible = true;
+
+            lblEstrelas.Text = "ESTRELAS: " + principal.estrelasTotal + "/21";
+            lblEstrelas.Visible = true;
+
+            pbEstrelaTotal.Location = new Point(lblEstrelas.Right + 8,lblEstrelas.Top + (lblEstrelas.Height - pbEstrelaTotal.Height) / 2 - 10);
+
+            pbEstrelaTotal.Visible = true;
 
         }
         #endregion

@@ -1,214 +1,154 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Kalculate_KoalaBoy
 {
     public partial class TelaLobby : UserControl
     {
-        private TelaPrincipal principal;
+        #region Componentes da tela
 
-        public TelaLobby(TelaPrincipal telaPrincipal)
+        private Panel panelMapa; // Variavel do panel do mapa.
+        private PictureBox pbKoala; // Koala.
+        private int faseSelecionada = 1; // fase
+
+        // Posições do koala
+        private Point[] posicoesFases =
+        {
+            new Point(325, 326), // Fase 1: Arquitetura e Urbanismo.
+            new Point(655, 163), // Fase 2: Biomedicina.
+            new Point(670, 408), // Fase 3: Direito.
+            new Point(299, 616), // Fase 4: Educação Física.
+            new Point(662, 616), // Fase 5: Artes e Comunicações.
+            new Point(988, 256)  // Fase 6: Comércio Exterior.
+        };
+
+        #endregion
+
+        #region inicializa tela mapa
+        // Inicia o Lobby.
+        public TelaLobby()
         {
             InitializeComponent();
-
-            /*btnJogarFase.Click += (sender, e) => JogarFase();
-            PictureBox[] casas = ObterCasas();
-            tamanhoOriginalMapa = panelMapa.ClientSize;
-            posicoesOriginais = Array.ConvertAll(casas, casa => casa.Bounds);
-            for (int i = 0; i < casas.Length; i++)
-            {
-                int fase = i;
-                casas[i].Click += (sender, e) => SelecionarFase(fase);
-            }
-            panelMapa.SizeChanged += (sender, e) => AjustarCaixinhas();
-            panelDescricaoFase.Hide();
-            */
         }
 
-        /*private int vidasGerais = 3;
-        private int posicaoAtual;
-        private int ultimaFaseLiberada = 1;
-        private readonly int[] estrelasPorFase = new int[8];
-        private const int UltimaFaseDoMapaAtual = 4;
-        private readonly Size tamanhoOriginalMapa;
-        private readonly Rectangle[] posicoesOriginais;
-
-        public event Action<int> FaseEscolhida;
-
-        public void AtualizarVisual()
+        // Inicializa a tela com a tela principal nos parametros.
+        public TelaLobby(TelaPrincipal telaPrincipal)
         {
-            AjustarCaixinhas();
-            AtualizarVidasGerais();
+            // Prepara a estrutura básica do UserControl.
+            InitializeComponent();
+
+            // Monta o painel e coloca a imagem do mapa nele.
+            CriarPainelMapa();
+
+            // Cria o personagem e o coloca na primeira fase.
+            CriarKoala();
+            PosicionarKoala();
+
+            // Liga as teclas A e D à movimentação entre as fases.
+            this.KeyDown += new KeyEventHandler(TelaLobby_KeyDown);
+
         }
+        #endregion
 
-        public void RegistrarResultado(int fase, bool venceu, int vidaRestante)
+        #region Criação do painel do mapa
+
+        private void CriarPainelMapa()
         {
-            if (venceu)
-            {
-                int estrelas = Math.Min(3, vidaRestante);
-                estrelasPorFase[fase] = Math.Max(estrelasPorFase[fase], estrelas);
-                ultimaFaseLiberada = Math.Max(ultimaFaseLiberada,
-                    Math.Min(fase + 1, estrelasPorFase.Length - 1));
-            }
-            else if (vidasGerais > 0)
-            {
-                vidasGerais--;
-            }
-        }
+            // Cria o painel
+            panelMapa = new Panel();
+            panelMapa.Name = "panelMapa";
 
-        private void JogarFase()
-        {
-            if (vidasGerais > 0 && posicaoAtual > 0 &&
-                posicaoAtual <= ultimaFaseLiberada)
-            {
-                FaseEscolhida?.Invoke(posicaoAtual);
-            }
-        }
+            panelMapa.Dock = DockStyle.Fill; // Preenche a tela inteira com o painel.
+            panelMapa.BackgroundImageLayout = ImageLayout.Stretch; // imagem esticada.
 
+            // Carrega a imagem da pasta Imagens/TelaLobby.
+            panelMapa.BackgroundImage = Image.FromFile(Path.Combine(
+                AppContext.BaseDirectory, "Imagens", "TelaLobby", "TelaLobby.png"));
 
-        #region Painel de descrição da fase
+            // Add o painel.
+            this.Controls.Add(panelMapa);
 
-        private int faseDoMenuExibido;
-
-        private void AtualizarDescricaoFase()
-        {
-            if (posicaoAtual == 0)
-            {
-                //panelDescricaoFase.Visible = false;
-                return;
-            }
-
-            if (faseDoMenuExibido != posicaoAtual)
-            {
-
-                panelDescricaoFase.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_" + vidasGerais + "hp.png"));
-
-                faseDoMenuExibido = posicaoAtual;
-            }
-
-            btnJogarFase.Enabled = vidasGerais > 0 && posicaoAtual <= ultimaFaseLiberada;
-
-            panelDescricaoFase.Visible = true;
+            // Ao clicar no mapa, o teclado continua controlando o Koala.
+            panelMapa.Click += new EventHandler(FocarLobby);
         }
 
         #endregion
 
-        #region Vidas gerais
+        #region Koala
 
-        private void AtualizarVidasGerais()
+        private void CriarKoala()
         {
-        pbKoalaVidas.Image = Image.FromFile(Path.Combine(AppContext.BaseDirectory, "Imagens", "KoalaBoy", "koala_" + vidasGerais + "hp.png"));
+            // Cria a PictureBox e define o tamanho do personagem no mapa.
+            pbKoala = new PictureBox();
+            pbKoala.Name = "pbKoala";
+            pbKoala.Size = new Size(32, 50);
+            pbKoala.SizeMode = PictureBoxSizeMode.Zoom;
+            pbKoala.BackColor = Color.Transparent;
+            pbKoala.TabStop = false;
+            pbKoala.Image = Image.FromFile(Path.Combine(
+                AppContext.BaseDirectory, "Imagens", "KoalaBoy", "KoalaBoy3.png"));
+
+            // add koala.
+            panelMapa.Controls.Add(pbKoala);
+            pbKoala.Click += new EventHandler(FocarLobby);
+        }
+        #endregion
+
+        #region Posição do Koala
+
+        private void PosicionarKoala()
+        {
+            int indice = faseSelecionada - 1;
+
+            // Muda a posição.
+            pbKoala.Location = posicoesFases[indice];
+            pbKoala.BringToFront();
         }
 
         #endregion
 
-        #region Casas e movimentação no mapa
+        #region Teclas A e D
 
-        private PictureBox[] ObterCasas()
+        private void TelaLobby_KeyDown(object sender, KeyEventArgs e)
         {
-            return new PictureBox[]
+            // D avança.
+            if (e.KeyCode == Keys.D)
             {
-                pbInicio,
-                pbFase1,
-                pbFase2,
-                pbFase3,
-                pbFase4,
-            };
-        }
-
-        private void MoverJogador(int direcao)
-        {
-            SelecionarFase(posicaoAtual + direcao);
-        }
-
-        private void SelecionarFase(int destino)
-        {
-            if (destino < 0 ||
-                destino > UltimaFaseDoMapaAtual ||
-                destino > ultimaFaseLiberada)
-            {
-                return;
-            }
-
-            posicaoAtual = destino;
-            PosicionarJogador();
-        }
-
-        private void AjustarCaixinhas()
-        {
-            double escalaX = (double)panelMapa.ClientSize.Width / tamanhoOriginalMapa.Width;
-            double escalaY = (double)panelMapa.ClientSize.Height / tamanhoOriginalMapa.Height;
-            PictureBox[] casas = ObterCasas();
-
-            for (int i = 0; i < casas.Length; i++)
-            {
-                Rectangle original = posicoesOriginais[i];
-                casas[i].SetBounds(
-                    (int)Math.Round(original.X * escalaX),
-                    (int)Math.Round(original.Y * escalaY),
-                    (int)Math.Round(original.Width * escalaX),
-                    (int)Math.Round(original.Height * escalaY));
-            }
-
-            PosicionarJogador();
-        }
-
-        private void PosicionarJogador()
-        {
-            PictureBox casa = ObterCasas()[posicaoAtual];
-            pbJogador.Location = new Point(
-                casa.Left + (casa.Width - pbJogador.Width) / 2,
-                casa.Top + (casa.Height - pbJogador.Height) / 2
-            );
-
-            pbJogador.BringToFront();
-            panelDescricaoFase.BringToFront();
-            AtualizarDescricaoFase();
-        }
-
-        #endregion
-
-        #region Comandos do teclado
-
-        protected override bool ProcessCmdKey(
-            ref Message msg, Keys keyData)
-        {
-            if (Visible)
-            {
-                switch (keyData)
+                if (faseSelecionada < posicoesFases.Length)
                 {
-                    case Keys.D:
-                    case Keys.Right:
-                    case Keys.S:
-                    case Keys.Down:
-                        MoverJogador(1);
-                        return true;
-
-                    case Keys.A:
-                    case Keys.Left:
-                    case Keys.W:
-                    case Keys.Up:
-                        MoverJogador(-1);
-                        return true;
-
-                    case Keys.Enter:
-                        JogarFase();
-                        return true;
+                    faseSelecionada++;
+                    PosicionarKoala();
                 }
+
+                e.SuppressKeyPress = true;
             }
 
-            return base.ProcessCmdKey(ref msg, keyData);
+            // A volta.
+            if (e.KeyCode == Keys.A)
+            {
+                if (faseSelecionada > 1)
+                {
+                    faseSelecionada--;
+                    PosicionarKoala();
+                }
+
+                e.SuppressKeyPress = true;
+            }
         }
 
         #endregion
-        */
+
+        #region Foco do teclado
+
+        private void FocarLobby(object sender, EventArgs e)
+        {
+            // Recupera o foco ao clicar no fundo ou no personagem.
+            this.Focus();
+        }
+
+        #endregion
+
     }
 }

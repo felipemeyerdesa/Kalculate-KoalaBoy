@@ -59,7 +59,7 @@ namespace Kalculate_KoalaBoy
         {
             if (principal.BatalhaAtual == 7)
             {
-                inimigohp = 9;
+                inimigohp = 2;
             }
             else
             {
@@ -1718,6 +1718,7 @@ namespace Kalculate_KoalaBoy
             if (pontosJaRegistrados == false)
             {
                 principal.pontuacaoTotal += pontuacaoBatalha;
+                principal.estrelasTotal += koalahp;
 
                 pontosJaRegistrados = true;
             }
